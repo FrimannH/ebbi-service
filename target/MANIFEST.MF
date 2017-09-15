@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: ebbi-report-service
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: is.larsen.ebbi
+Build-Jdk: 1.8.0_05
+Built-By: frimann.hreinsson
+Created-By: IntelliJ IDEA
+Main-Class: ${start-class}
+

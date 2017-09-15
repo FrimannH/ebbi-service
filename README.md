@@ -43,4 +43,4 @@ into "src/main/resources/static"). You can also use `ng build --watch` to auto c
 
 ## License
 
-* MIT
+* Larsen 
