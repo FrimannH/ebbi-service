@@ -19,7 +19,7 @@ public class EbbiServiceController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/customers")
-    public List<Integer> getCustomers() {
+    public List<Customer> getCustomers() {
 
         return ebbiService.getCustomers();
 

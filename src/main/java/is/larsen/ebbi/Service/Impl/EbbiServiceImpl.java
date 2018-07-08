@@ -5,7 +5,6 @@ import is.larsen.ebbi.Model.*;
 import is.larsen.ebbi.Dao.CustomerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EbbiServiceImpl implements EbbiService {
@@ -19,14 +18,15 @@ public class EbbiServiceImpl implements EbbiService {
 
     @Override
     public List<Customer> getCustomers() {
-        List<Customer> customers = new ArrayList<Customer>();
-
-        return customers;
+        return customerDao.getCustomers();
     }
 
     @Override
-    public  Response addCustomer(Customer customer) {
-        return
+    public  Response addCustomer(String customerName, String customerDescription) {
+
+        Integer status = customerDao.addCustomer(customerName, customerDescription);
+
+        return new Response(status, "");
     }
 
     @Override

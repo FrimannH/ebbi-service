@@ -9,7 +9,7 @@ public interface EbbiService {
 
     List<Customer> getCustomers();
 
-    Response addCustomer(Customer customer);
+    Response addCustomer(String customerName, String customerDescription);
 
     Response updateCustomerSurvey(Integer customerId, String input);
 }

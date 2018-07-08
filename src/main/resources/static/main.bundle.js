@@ -21,7 +21,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\n.admin {\n\n}\n\n.admin_customers {\n  min-height: 50px;\n  border: solid\n}\n\n.admin_report {\n  min-height: 50px;\n  border: solid\n}\n", ""]);
 
 // exports
 
@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/admin/admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n <p>\n   Admin component\n </p>\n</div>\n"
+module.exports = "<script src=\"https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js\"></script>\n<div>\n  <p>Customers</p>\n <div class=\"admin_customers\" ng-app=\"customerApp\" ng-controller=\"customerCtrl\">\n   <p>The message is:</p>\n   <h3>{{message}}</h3>\n   <!--<ul>-->\n     <!--<li ng-repeat=\"c in customers\">-->\n       <!--{{'Id: ' + c.customerId + ' Customer Name: ' + c.customerName }}-->\n     <!--</li>-->\n   <!--</ul>-->\n\n </div>\n  <p>Report</p>\n <div class=\"admin_report\">\n\n </div>\n</div>\n\n<script>\n  var app = angular.module('customerApp', []);\n//  app.controller('customerCtrl', function($scope, $http) {\n//    $http({\n//      method : \"GET\",\n//      url : \"http://localhost:9091/customers\"\n//    }).then(function mySuccess(response) {\n//      $scope.customers = response.data;\n//    }, function myError(response) {\n//      $scope.myWelcome = response.statusText;\n//    });\n//  });\n  app.controller('customerCtrl', function($scope) {\n      $scope.message = \"Message\";\n  });\n</script>\n\n"
 
 /***/ }),
 
@@ -229,7 +229,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".home_page {\n  background-color: #FF8C00;\n  padding: 10px;\n}\n\n.center {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n  width: 50%;\n}\n", ""]);
 
 // exports
 
@@ -242,7 +242,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  home works!\n</p>\n"
+module.exports = "<div class=\"home_page\">\n    <div>\n      <img src=\".\\assets\\ebbi_report\\img\\LarsEn_logo.png\" atl=\"Ebbi logo\" class=\"center\">\n    </div>\n</div>\n"
 
 /***/ }),
 
