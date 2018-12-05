@@ -19,14 +19,22 @@ public class EbbiServiceController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/customers")
-    public List<Customer> getCustomers() {
+    public List<CustomerResponse> getCustomers() {
 
         return ebbiService.getCustomers();
 
     }
 
-    @RequestMapping(method =  RequestMethod.POST, value = "/update/survey" )
-    public Response updateCustomerQuery(@RequestBody  UpdateSurveyRequest request) {
-        return ebbiService.updateCustomerSurvey(request.getCustomerId(), request.getInput());
+    @RequestMapping(method = RequestMethod.GET, value = "/questions")
+    public GetQuestionsResponse getQuestions() {
+
+        return ebbiService.getQuestions();
+
     }
+
+    @RequestMapping(method =  RequestMethod.POST, value = "/update/survey" )
+    public BaseResponse updateSurvey(@RequestBody  UpdateSurveyRequest request) {
+        return ebbiService.updateSurvey(request.getCustomerId(), request.getAnswers());
+    }
+
 }

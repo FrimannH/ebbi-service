@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/admin/admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<script src=\"https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js\"></script>\n<div>\n  <p>Customers</p>\n <div class=\"admin_customers\" ng-app=\"customerApp\" ng-controller=\"customerCtrl\">\n   <p>The message is:</p>\n   <h3>{{message}}</h3>\n   <!--<ul>-->\n     <!--<li ng-repeat=\"c in customers\">-->\n       <!--{{'Id: ' + c.customerId + ' Customer Name: ' + c.customerName }}-->\n     <!--</li>-->\n   <!--</ul>-->\n\n </div>\n  <p>Report</p>\n <div class=\"admin_report\">\n\n </div>\n</div>\n\n<script>\n  var app = angular.module('customerApp', []);\n//  app.controller('customerCtrl', function($scope, $http) {\n//    $http({\n//      method : \"GET\",\n//      url : \"http://localhost:9091/customers\"\n//    }).then(function mySuccess(response) {\n//      $scope.customers = response.data;\n//    }, function myError(response) {\n//      $scope.myWelcome = response.statusText;\n//    });\n//  });\n  app.controller('customerCtrl', function($scope) {\n      $scope.message = \"Message\";\n  });\n</script>\n\n"
+module.exports = "<script>\n  var app = angular.module('app-root', []);\n  app.controller('customerCtrl', function($scope) {\n    $scope.name = \"Name\";\n    $scope.message = \"Message\";\n  });\n</script>\n\n<div>\n  <p>Customers</p>\n  <div class=\"admin_customers\" ng-app=\"app-root\" ng-controller=\"customerCtrl\">\n    <input type=\"text\" ng-model=\"name\" ng-init=\"name='John'\">\n    <p>The name is: {{name}}</p>\n    <h3>{{name}}</h3>\n   <p>The message is:</p>\n   <h3>{{message}}</h3>\n\n\n </div>\n  <p>Report</p>\n <div class=\"admin_report\">\n\n </div>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -143,9 +143,8 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__home_home_component__ = __webpack_require__("../../../../../src/app/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__list_list_component__ = __webpack_require__("../../../../../src/app/list/list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__report_report_component__ = __webpack_require__("../../../../../src/app/report/report.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__report_report_component__ = __webpack_require__("../../../../../src/app/report/report.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -153,7 +152,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -174,9 +172,8 @@ AppModule = __decorate([
         declarations: [
             __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__list_list_component__["a" /* ListComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__admin_admin_component__["a" /* AdminComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__report_report_component__["a" /* ReportComponent */]
+            __WEBPACK_IMPORTED_MODULE_8__admin_admin_component__["a" /* AdminComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__report_report_component__["a" /* ReportComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -199,11 +196,9 @@ AppModule = __decorate([
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home_component__ = __webpack_require__("../../../../../src/app/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__list_list_component__ = __webpack_require__("../../../../../src/app/list/list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__report_report_component__ = __webpack_require__("../../../../../src/app/report/report.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__report_report_component__ = __webpack_require__("../../../../../src/app/report/report.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routing; });
-
 
 
 
@@ -211,9 +206,8 @@ AppModule = __decorate([
 var routes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_1__home_home_component__["a" /* HomeComponent */] },
     { path: 'home', component: __WEBPACK_IMPORTED_MODULE_1__home_home_component__["a" /* HomeComponent */] },
-    { path: 'list', component: __WEBPACK_IMPORTED_MODULE_2__list_list_component__["a" /* ListComponent */] },
-    { path: 'admin', component: __WEBPACK_IMPORTED_MODULE_3__admin_admin_component__["a" /* AdminComponent */] },
-    { path: 'report', component: __WEBPACK_IMPORTED_MODULE_4__report_report_component__["a" /* ReportComponent */] },
+    { path: 'admin', component: __WEBPACK_IMPORTED_MODULE_2__admin_admin_component__["a" /* AdminComponent */] },
+    { path: 'report', component: __WEBPACK_IMPORTED_MODULE_3__report_report_component__["a" /* ReportComponent */] },
     { path: '**', redirectTo: '' }
 ];
 var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterModule */].forRoot(routes);
@@ -279,72 +273,6 @@ HomeComponent = __decorate([
 ], HomeComponent);
 
 //# sourceMappingURL=home.component.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/list/list.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/list/list.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  list works!\n</p>\n<br />\n\n<ul>\n  <li *ngFor=\"let course of courses\">\n    {{course}}\n  </li>\n</ul>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/list/list.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ListComponent = (function () {
-    function ListComponent(http) {
-        var _this = this;
-        http.get('api/courses')
-            .map(function (res) { return res.json(); })
-            .subscribe(function (courses) { return _this.courses = courses; }, function (err) { return console.log(err); });
-    }
-    return ListComponent;
-}());
-ListComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
-        selector: 'app-list',
-        template: __webpack_require__("../../../../../src/app/list/list.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/list/list.component.css")]
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
-], ListComponent);
-
-var _a;
-//# sourceMappingURL=list.component.js.map
 
 /***/ }),
 

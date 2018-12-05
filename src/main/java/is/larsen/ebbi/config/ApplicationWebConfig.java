@@ -1,6 +1,7 @@
 package is.larsen.ebbi.config;
 
-import is.larsen.ebbi.Model.Customer;
+import is.larsen.ebbi.Dao.Impl.QuestionsDaoImpl;
+import is.larsen.ebbi.Dao.QuestionsDao;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
@@ -13,8 +14,6 @@ import is.larsen.ebbi.Dao.CustomerDao;
 import is.larsen.ebbi.Dao.Impl.CustomerDaoImpl;
 
 import is.larsen.ebbi.Service.Impl.EbbiServiceImpl;
-
-import java.util.List;
 
 @Configuration
 public class ApplicationWebConfig extends WebMvcConfigurerAdapter{
@@ -39,6 +38,7 @@ public class ApplicationWebConfig extends WebMvcConfigurerAdapter{
     @Bean
     public CustomerDao customerDao() { return new CustomerDaoImpl(); }
 
-
+    @Bean
+    public QuestionsDao questionsDao() { return new QuestionsDaoImpl(); }
 
 }

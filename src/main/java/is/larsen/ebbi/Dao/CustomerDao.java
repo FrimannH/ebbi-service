@@ -1,7 +1,7 @@
 package is.larsen.ebbi.Dao;
 
 
-import is.larsen.ebbi.Model.Customer;
+import is.larsen.ebbi.Model.CustomerResponse;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public interface CustomerDao {
 
     public Integer deleteCustomer(Integer customerId);
 
-    public List<Customer> getCustomers();
+    public List<CustomerResponse> getCustomers();
 }

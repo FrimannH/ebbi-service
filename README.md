@@ -40,7 +40,7 @@ into "src/main/resources/static"). You can also use `ng build --watch` to auto c
 ## Usage (Run frontend on nodejs and backend with spring)
 
 Local instance is:
- http://localhost:9091/admin
+http://localhost:9091
 
 
 ## License

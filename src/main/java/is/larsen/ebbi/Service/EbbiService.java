@@ -1,15 +1,16 @@
 package is.larsen.ebbi.Service;
 
-import is.larsen.ebbi.Model.Response;
-import is.larsen.ebbi.Model.Customer;
+import is.larsen.ebbi.Model.*;
 
 import java.util.List;
 
 public interface EbbiService {
 
-    List<Customer> getCustomers();
+    List<CustomerResponse> getCustomers();
 
-    Response addCustomer(String customerName, String customerDescription);
+    GetQuestionsResponse getQuestions();
 
-    Response updateCustomerSurvey(Integer customerId, String input);
+    BaseResponse addCustomer(String customerName, String customerDescription);
+
+    BaseResponse updateSurvey(Integer customerId, List<Answer> input);
 }

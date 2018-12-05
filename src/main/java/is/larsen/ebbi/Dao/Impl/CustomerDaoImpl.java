@@ -2,7 +2,7 @@ package is.larsen.ebbi.Dao.Impl;
 
 
 import is.larsen.ebbi.Dao.CustomerDao;
-import is.larsen.ebbi.Model.Customer;
+import is.larsen.ebbi.Model.CustomerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,7 +24,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<CustomerResponse> getCustomers() {
         return jdbcTemplate.query("SELECT * FROM Customers", new CustomerRowMapper());
     }
 
@@ -33,10 +33,10 @@ public class CustomerDaoImpl implements CustomerDao {
         return jdbcTemplate.update("DELETE FROM Customer where customer_id = " + customerId + ";");
     }
 
-    public class CustomerRowMapper implements RowMapper {
+    protected class CustomerRowMapper implements RowMapper {
 
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Customer customer = new Customer();
+            CustomerResponse customer = new CustomerResponse();
             customer.setCustomerId(rs.getInt("customer_id"));
             customer.setCustomerName(rs.getString("customer_name"));
             customer.setCustomerDescription(rs.getString("customer_description"));

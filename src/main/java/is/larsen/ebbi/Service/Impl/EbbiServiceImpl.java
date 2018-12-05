@@ -1,5 +1,6 @@
 package is.larsen.ebbi.Service.Impl;
 
+import is.larsen.ebbi.Dao.QuestionsDao;
 import is.larsen.ebbi.Service.EbbiService;
 import is.larsen.ebbi.Model.*;
 import is.larsen.ebbi.Dao.CustomerDao;
@@ -12,26 +13,32 @@ public class EbbiServiceImpl implements EbbiService {
     @Autowired
     private CustomerDao customerDao;
 
+    @Autowired
+    private QuestionsDao questionsDao;
+
     public EbbiServiceImpl() {
 
     }
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<CustomerResponse> getCustomers() {
         return customerDao.getCustomers();
     }
 
     @Override
-    public  Response addCustomer(String customerName, String customerDescription) {
+    public GetQuestionsResponse getQuestions() { return questionsDao.getQuestions(); }
+
+    @Override
+    public BaseResponse addCustomer(String customerName, String customerDescription) {
 
         Integer status = customerDao.addCustomer(customerName, customerDescription);
 
-        return new Response(status, "");
+        return new BaseResponse(status, "");
     }
 
     @Override
-    public Response updateCustomerSurvey(Integer customerId, String input) {
-        Response response = new Response();
+    public BaseResponse updateSurvey(Integer customerId, List<Answer> answers) {
+        BaseResponse response = new BaseResponse();
         //do something
 
         return response;

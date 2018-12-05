@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { ListComponent } from './list/list.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReportComponent } from './report/report.component';
 
@@ -15,7 +14,6 @@ import { ReportComponent } from './report/report.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    ListComponent,
     AdminComponent,
     ReportComponent
   ],
