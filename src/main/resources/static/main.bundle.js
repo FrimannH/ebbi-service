@@ -95,7 +95,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n      <div class=\"container\">\n        <div class=\"navbar-header\">\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n            <span class=\"sr-only\">Toggle navigation</span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n            <span class=\"icon-bar\"></span>\n          </button>\n          <a class=\"navbar-brand\">Ebbi-Service</a>\n        </div>\n        <div id=\"navbar\" class=\"navbar-collapse collapse\">\n          <ul class=\"nav navbar-nav\">\n            <li ><a [routerLink]=\"['/admin']\" >Admin</a></li>\n            <li><a [routerLink]=\"['/report']\" >Report</a></li>\n          </ul>\n        </div><!--/.nav-collapse -->\n      </div>\n    </nav>\n<div style=\"margin-top: 100px\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n      <div class=\"container\">\n        <!--<div class=\"navbar-header\">-->\n          <!--<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">-->\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n          <!--</button>-->\n          <!--<a class=\"navbar-brand\">Ebbi-Service</a>-->\n        <!--</div>-->\n        <div id=\"navbar\" class=\"navbar-collapse collapse\">\n          <ul class=\"nav navbar-nav\">\n            <li ><a [routerLink]=\"['/']\" >Ebbi-Service</a></li>\n            <li ><a [routerLink]=\"['/admin']\" >Admin</a></li>\n            <li><a [routerLink]=\"['/report']\" >Report</a></li>\n          </ul>\n        </div><!--/.nav-collapse -->\n      </div>\n    </nav>\n<div style=\"margin-top: 100px\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -205,7 +205,7 @@ AppModule = __decorate([
 
 var routes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_1__home_home_component__["a" /* HomeComponent */] },
-    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_1__home_home_component__["a" /* HomeComponent */] },
+    //  { path: 'home', component: HomeComponent },
     { path: 'admin', component: __WEBPACK_IMPORTED_MODULE_2__admin_admin_component__["a" /* AdminComponent */] },
     { path: 'report', component: __WEBPACK_IMPORTED_MODULE_3__report_report_component__["a" /* ReportComponent */] },
     { path: '**', redirectTo: '' }
