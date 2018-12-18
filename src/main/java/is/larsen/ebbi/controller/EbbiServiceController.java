@@ -1,12 +1,12 @@
 package is.larsen.ebbi.controller;
 
+import is.larsen.ebbi.Model.requests.*;
+import is.larsen.ebbi.Model.responses.*;
+import is.larsen.ebbi.Model.responses.GetQuestionsResponse;
 import is.larsen.ebbi.Service.EbbiService;
-import is.larsen.ebbi.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class EbbiServiceController {
@@ -18,11 +18,20 @@ public class EbbiServiceController {
         this.ebbiService = ebbiService;
     }
 
+    @RequestMapping(method =  RequestMethod.POST, value = "/customer" )
+    public BaseResponse addCustomer(@RequestBody AddCustomerRequest request) {
+        return ebbiService.addCustomer(request.getCustomerName(), request.getCustomerDescription());
+    }
+
+    @RequestMapping(method =  RequestMethod.DELETE, value = "/customer" )
+    public BaseResponse deleteCustomer(@RequestBody AddCustomerRequest request) {
+        return ebbiService.addCustomer(request.getCustomerName(), request.getCustomerDescription());
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/customers")
-    public List<CustomerResponse> getCustomers() {
+    public GetCustomersResponse getCustomers() {
 
         return ebbiService.getCustomers();
-
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/questions")

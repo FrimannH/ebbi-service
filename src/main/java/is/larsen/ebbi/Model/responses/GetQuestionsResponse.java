@@ -1,6 +1,8 @@
-package is.larsen.ebbi.Model;
+package is.larsen.ebbi.Model.responses;
 
 
+import is.larsen.ebbi.Model.Question;
+import is.larsen.ebbi.Model.responses.BaseResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

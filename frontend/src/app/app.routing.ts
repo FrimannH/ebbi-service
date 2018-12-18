@@ -8,7 +8,6 @@ import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-//  { path: 'home', component: HomeComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'report', component: ReportComponent },
   { path: '**', redirectTo: '' }

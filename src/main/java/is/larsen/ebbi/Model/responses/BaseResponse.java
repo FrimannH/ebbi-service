@@ -1,4 +1,4 @@
-package is.larsen.ebbi.Model;
+package is.larsen.ebbi.Model.responses;
 
 
 import java.io.Serializable;

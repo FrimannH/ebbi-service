@@ -1,9 +1,9 @@
 package is.larsen.ebbi.Dao;
 
 
-import is.larsen.ebbi.Model.AddAnswersResponse;
+import is.larsen.ebbi.Model.responses.AddAnswersResponse;
 import is.larsen.ebbi.Model.Answer;
-import is.larsen.ebbi.Model.GetAnswerResponse;
+import is.larsen.ebbi.Model.responses.GetAnswerResponse;
 
 import java.util.List;
 

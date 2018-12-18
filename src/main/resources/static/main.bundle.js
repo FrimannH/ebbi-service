@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/admin/admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<script>\n  var app = angular.module('app-root', []);\n  app.controller('customerCtrl', function($scope) {\n    $scope.name = \"Name\";\n    $scope.message = \"Message\";\n  });\n</script>\n\n<div>\n  <p>Customers</p>\n  <div class=\"admin_customers\" ng-app=\"app-root\" ng-controller=\"customerCtrl\">\n    <input type=\"text\" ng-model=\"name\" ng-init=\"name='John'\">\n    <p>The name is: {{name}}</p>\n    <h3>{{name}}</h3>\n   <p>The message is:</p>\n   <h3>{{message}}</h3>\n\n\n </div>\n  <p>Report</p>\n <div class=\"admin_report\">\n\n </div>\n</div>\n\n\n"
+module.exports = "<script>\n  var app = angular.module('admin-home', []);\n  app.controller('customerCtrl', function($scope) {\n    $scope.name = \"Name\";\n    $scope.message = \"Message\";\n  });\n</script>\n\n<div>\n  <p>Customers</p>\n  <div class=\"admin_customers\" ng-app=\"admin-home\" ng-controller=\"customerCtrl\">\n    <input type=\"text\" ng-model=\"name\" ng-init=\"name='John'\">\n    <p>The name is: {{name}}</p>\n    <h3>{{name}}</h3>\n   <p>The message is:</p>\n   <h3>{{message}}</h3>\n\n\n </div>\n  <p>Report</p>\n <div class=\"admin_report\">\n\n </div>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -95,7 +95,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n      <div class=\"container\">\n        <!--<div class=\"navbar-header\">-->\n          <!--<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">-->\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n          <!--</button>-->\n          <!--<a class=\"navbar-brand\">Ebbi-Service</a>-->\n        <!--</div>-->\n        <div id=\"navbar\" class=\"navbar-collapse collapse\">\n          <ul class=\"nav navbar-nav\">\n            <li ><a [routerLink]=\"['/']\" >Ebbi-Service</a></li>\n            <li ><a [routerLink]=\"['/admin']\" >Admin</a></li>\n            <li><a [routerLink]=\"['/report']\" >Report</a></li>\n          </ul>\n        </div><!--/.nav-collapse -->\n      </div>\n    </nav>\n<div style=\"margin-top: 100px\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n      <div class=\"container\">\n        <!--<div class=\"navbar-header\">-->\n          <!--<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">-->\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n            <!--<span class=\"icon-bar\"></span>-->\n          <!--</button>-->\n          <!--<a class=\"navbar-brand\">Ebbi-Service</a>-->\n        <!--</div>-->\n        <div id=\"navbar\" class=\"navbar-collapse collapse\">\n          <ul class=\"nav navbar-nav\">\n            <li ><a [routerLink]=\"['/']\" >{{title}}</a></li>\n            <li ><a [routerLink]=\"['/admin']\" >Admin</a></li>\n            <li><a [routerLink]=\"['/report']\" >Report</a></li>\n          </ul>\n        </div><!--/.nav-collapse -->\n      </div>\n    </nav>\n<div style=\"margin-top: 100px\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -114,7 +114,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'app works!';
+        this.title = "Ebbi Service";
     }
     return AppComponent;
 }());
@@ -141,10 +141,11 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_routing__ = __webpack_require__("../../../../../src/app/app.routing.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__home_home_component__ = __webpack_require__("../../../../../src/app/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__report_report_component__ = __webpack_require__("../../../../../src/app/report/report.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home_component__ = __webpack_require__("../../../../../src/app/home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__admin_admin_component__ = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__report_report_component__ = __webpack_require__("../../../../../src/app/report/report.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -152,6 +153,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -170,19 +172,20 @@ var AppModule = (function () {
 AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__home_home_component__["a" /* HomeComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__admin_admin_component__["a" /* AdminComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__report_report_component__["a" /* ReportComponent */]
+            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_8__home_home_component__["a" /* HomeComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__admin_admin_component__["a" /* AdminComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__report_report_component__["a" /* ReportComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_4__app_routing__["a" /* routing */]
+            __WEBPACK_IMPORTED_MODULE_4__app_routing__["a" /* routing */],
+            __WEBPACK_IMPORTED_MODULE_6__angular_common_http__["a" /* HttpClientModule */]
         ],
         providers: [],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]]
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
 
@@ -205,7 +208,6 @@ AppModule = __decorate([
 
 var routes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_1__home_home_component__["a" /* HomeComponent */] },
-    //  { path: 'home', component: HomeComponent },
     { path: 'admin', component: __WEBPACK_IMPORTED_MODULE_2__admin_admin_component__["a" /* AdminComponent */] },
     { path: 'report', component: __WEBPACK_IMPORTED_MODULE_3__report_report_component__["a" /* ReportComponent */] },
     { path: '**', redirectTo: '' }

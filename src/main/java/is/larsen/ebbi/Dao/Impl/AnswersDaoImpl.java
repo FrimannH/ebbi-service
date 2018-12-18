@@ -2,9 +2,9 @@ package is.larsen.ebbi.Dao.Impl;
 
 
 import is.larsen.ebbi.Dao.AnswersDao;
-import is.larsen.ebbi.Model.AddAnswersResponse;
+import is.larsen.ebbi.Model.responses.AddAnswersResponse;
 import is.larsen.ebbi.Model.Answer;
-import is.larsen.ebbi.Model.GetAnswerResponse;
+import is.larsen.ebbi.Model.responses.GetAnswerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

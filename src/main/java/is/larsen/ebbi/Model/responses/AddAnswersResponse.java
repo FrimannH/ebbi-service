@@ -1,11 +1,8 @@
-package is.larsen.ebbi.Model;
+package is.larsen.ebbi.Model.responses;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor

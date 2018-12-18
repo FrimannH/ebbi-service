@@ -1,8 +1,9 @@
-package is.larsen.ebbi.Model;
+package is.larsen.ebbi.Model.requests;
 
 import java.io.Serializable;
 import java.util.List;
 
+import is.larsen.ebbi.Model.Answer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

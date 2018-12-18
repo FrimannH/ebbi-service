@@ -1,5 +1,7 @@
-package is.larsen.ebbi.Model;
+package is.larsen.ebbi.Model.requests;
 
+
+import is.larsen.ebbi.Model.Answer;
 
 import java.util.List;
 

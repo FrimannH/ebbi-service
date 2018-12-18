@@ -2,10 +2,7 @@ package is.larsen.ebbi.Dao;
 
 
 
-import is.larsen.ebbi.Model.GetQuestionsResponse;
-import is.larsen.ebbi.Model.Question;
-
-import java.util.List;
+import is.larsen.ebbi.Model.responses.GetQuestionsResponse;
 
 public interface QuestionsDao {
 

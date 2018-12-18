@@ -2,8 +2,7 @@ package is.larsen.ebbi.Dao.Impl;
 
 
 import is.larsen.ebbi.Dao.QuestionsDao;
-import is.larsen.ebbi.Model.BaseResponse;
-import is.larsen.ebbi.Model.GetQuestionsResponse;
+import is.larsen.ebbi.Model.responses.GetQuestionsResponse;
 import is.larsen.ebbi.Model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class QuestionsDaoImpl implements QuestionsDao {
 

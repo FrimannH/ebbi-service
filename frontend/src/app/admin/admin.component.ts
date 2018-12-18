@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Customer} from '../dto/customer';
+import { CustomerService } from '../service/customer.service';
 
 @Component({
   selector: 'admin-home',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
 
+  //customers: Customer[];
+  //
+  //getHeroes(): void {
+  //  this.customers = this.customerService.getCustomers();
+  //}
 }

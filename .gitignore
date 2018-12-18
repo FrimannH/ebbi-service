@@ -2,6 +2,7 @@
 .classpath
 .idea
 .idea/*
+.idea*
 .project
 .settings
 .springBeans

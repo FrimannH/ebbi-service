@@ -1,6 +1,7 @@
 package is.larsen.ebbi.Service.Impl;
 
 import is.larsen.ebbi.Dao.QuestionsDao;
+import is.larsen.ebbi.Model.responses.*;
 import is.larsen.ebbi.Service.EbbiService;
 import is.larsen.ebbi.Model.*;
 import is.larsen.ebbi.Dao.CustomerDao;
@@ -21,7 +22,8 @@ public class EbbiServiceImpl implements EbbiService {
     }
 
     @Override
-    public List<CustomerResponse> getCustomers() {
+    public GetCustomersResponse getCustomers() {
+
         return customerDao.getCustomers();
     }
 
@@ -32,6 +34,13 @@ public class EbbiServiceImpl implements EbbiService {
     public BaseResponse addCustomer(String customerName, String customerDescription) {
 
         Integer status = customerDao.addCustomer(customerName, customerDescription);
+
+        return new BaseResponse(status, "");
+    }
+
+    @Override
+    public BaseResponse deleteCustomer(Integer customerId) {
+        Integer status = customerDao.deleteCustomer(customerId);
 
         return new BaseResponse(status, "");
     }
