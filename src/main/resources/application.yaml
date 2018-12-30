@@ -18,7 +18,7 @@ spring.datasource.password: EbbiService1
 
 
 spring:
-  application.type: angular_2_springboot
+  application.type: angular_4_springboot
   profiles.active: test
 
 logging.level:

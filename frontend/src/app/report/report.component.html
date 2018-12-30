@@ -1,5 +1,69 @@
 <div>
-  <p>
-    Report component
-  </p>
+  <div class="report">
+    <div class="report_admin">
+      <p class="report_header">  Fetch Report</p>
+      <select class="customer_list" name="customer" (change)="customerId = $event.target.value">
+        <option value="">-- Select --</option>
+        <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
+      </select>
+      <button (click)="getReport()" class="customer_button">Fetch report</button>
+    </div>
+  </div>
+  <div class="filler">
+
+  </div>
+  <div class="report">
+    <div class="report_display" *ngIf="noDataDisplay">
+      <p class="report_no_data">
+        No data
+      </p>
+    </div>
+    <div class="report_main" *ngIf="reportDataDisplay">
+      {{getReportResponse.customerName}}<br>
+      {{getReportResponse.description}}
+    </div>
+    <div *ngFor='let customer of customers'>
+      <div *ngFor='let reportItems of getReportResponse.reportItems' class="report_item">
+        <div class="question_header">
+          <p class="question_paragraph">{{reportItems.questionShortDescription}}</p>
+        </div>
+        <div class="report_content">
+           <span class="report_summary">
+             <p>Very Well {{reportItems.reportScore.veryWell}}</p>
+             <p>Well {{reportItems.reportScore.well}}</p>
+             <p>Moderate {{reportItems.reportScore.moderate}}</p>
+             <p>Badly {{reportItems.reportScore.badly}}</p>
+             <p>Very Badly {{reportItems.reportScore.veryBadly}}</p>
+             <p>Your Mean {{reportItems.reportScore.yourMean}}</p>
+             <p>Your Median {{reportItems.reportScore.yourMedian}}</p>
+             <p>Total answers {{reportItems.reportScore.totalAnswers}}</p>
+           </span>
+          <span>
+            <p>{{reportItems.questionText}}</p>
+          </span>
+          <div class="question_details_header">
+            <p class="question_paragraph">Detailed Analysis: {{reportItems.questionShortDescription}}</p>
+          </div>
+          <div class="report_details">
+             <p>Male: </p>
+            <p>Female: </p>
+            <p><45 year: </p>
+            <p>46-55 year: </p>
+            <p>56-65 year: </p>
+            <p>66>: </p>
+            <p>Less than kr 400k: </p>
+            <p>Less than kr 400k: </p>
+            <p>No university Degree: </p>
+            <p>University degree: </p>
+            <p>Detractors: </p>
+            <p>Passives: </p>
+            <p>Promoters: </p>
+            <p>Have you switched energy suppliers (for other reason than moving)</p>
+            <p>No: </p>
+            <p>Yes: </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

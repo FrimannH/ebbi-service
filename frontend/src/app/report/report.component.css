@@ -1,0 +1,79 @@
+
+.report {
+  min-height: 50px;
+  border: solid
+}
+
+.report_admin {
+  border: solid;
+  border-width: thin;
+  margin: 5px;
+  padding: 10px;
+}
+
+.customer_list {
+  display: block;
+  min-width: 20%;
+}
+
+.customer_button {
+  background-color: #839192;
+  border: none;
+  color: black;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  display: block;
+}
+
+.filler {
+  min-height: 15px;
+}
+
+.report_main {
+  font-size: 20px;
+  border: solid;
+  border-width: thin;
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+}
+
+.report_item {
+  border: solid;
+  border-width: thin;
+  margin: 5px;
+  padding: 10px;
+}
+
+.question_header {
+  font-weight: 700;
+  border-bottom: solid;
+  border-width: thin;
+  border-top: solid;
+  border-width: thin;
+  text-align: center;
+}
+
+.question_paragraph {
+  margin: 7px 7px;
+}
+
+.question_details_header {
+  font-weight: 700;
+  border-bottom: solid;
+  border-width: thin;
+  border-top: solid;
+  border-width: thin;
+  text-align: center;
+}
+
+.report_no_data {
+  font-weight: 700;
+  text-align: center;
+  margin: 15px 15px;
+}

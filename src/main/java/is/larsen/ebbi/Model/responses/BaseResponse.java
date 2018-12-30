@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseResponse implements Serializable {
-    private int statusCode;
+    private Integer statusCode;
     private String message;
 }

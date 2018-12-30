@@ -11,12 +11,12 @@ export class ListComponent {
   courses: string[];
 
   constructor(http: Http) {
-  
-    http.get('api/courses')
-      .map(res => res.json())
-      .subscribe(
-        courses => this.courses = courses,
-        err => console.log(err)
-      );
+
+    //http.get('api/courses')
+    //  .map(res => res.json())
+    //  .subscribe(
+    //    courses => this.courses = courses,
+    //    err => console.log(err)
+    //  );
   }
 }

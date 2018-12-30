@@ -1,26 +1,44 @@
-<script>
-  var app = angular.module('admin-home', []);
-  app.controller('customerCtrl', function($scope) {
-    $scope.name = "Name";
-    $scope.message = "Message";
-  });
-</script>
-
 <div>
   <p>Customers</p>
-  <div class="admin_customers" ng-app="admin-home" ng-controller="customerCtrl">
-    <input type="text" ng-model="name" ng-init="name='John'">
-    <p>The name is: {{name}}</p>
-    <h3>{{name}}</h3>
-   <p>The message is:</p>
-   <h3>{{message}}</h3>
+  <div class="admin_customers">
+    <div class="customer_edit">
+      <p class="admin_header"> Add Customers</p>
+      <label class="admin_label">Customer name:</label> <input [(value)]="customerName" (input)='customerName = $event.target.value' type="text" class="admin_input" name="customerName"><br>
+      <label class="admin_label">Customer description:</label> <input [(value)]="customerDescription" (input)='customerDescription = $event.target.value' type="text" class="admin_input" name="customerDescription">
+      <button class="customer_button" (click)="addCustomer()">Add</button>
+    </div>
+    <div class="customer_edit">
+      <p class="admin_header">  Delete Customers</p>
+      <select class="customer_list" name="customer" (change)="customerId = $event.target.value">
+        <option value="">-- Select --</option>
+        <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
+      </select>
+      <button (click)="deleteCustomer()" class="customer_button">Delete</button>
+    </div>
+  </div>
 
-
- </div>
-  <p>Report</p>
- <div class="admin_report">
-
- </div>
+  <div>
+    <p>Report</p>
+    <div class="admin_report">
+      <div class="customer_edit">
+        <p class="admin_header">  Upload survey</p>
+        <select class="customer_list" name="customer" (change)="customerId = $event.target.value">
+          <option value="">-- Select --</option>
+          <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
+        </select>
+        <input id="report_input_file" (input)="uploadReportFile($event)" type="file" class="input_file admin_input" name="inputFilePathName">
+        <label for="report_input_file" class="input_file_label admin_label">{{inputFileLabelValue}}</label>
+      </div>
+      <div class="customer_edit">
+        <p class="admin_header">  Delete survey</p>
+        <select class="customer_list" name="customer" (change)="customerId2 = $event.target.value">
+          <option value="">-- Select --</option>
+          <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
+        </select>
+        <button (click)="deleteSurvey()" class="customer_button">Delete survey</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 

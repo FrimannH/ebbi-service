@@ -27,7 +27,7 @@ public class QuestionsDaoImpl implements QuestionsDao {
     @Override
     public GetQuestionsResponse getQuestions() {
 
-        return new GetQuestionsResponse(jdbcTemplate.query("SELECT * FROM Questions", new QuestionsRowMapper()));
+        return new GetQuestionsResponse(jdbcTemplate.query("SELECT Questions.question_id, Questions.question_name, Questions.question_short_description, Questions.question_long_description, Questions.question_text, QuestionType.type_name FROM Questions INNER JOIN QuestionType ON Questions.question_type=QuestionType.type_id;", new QuestionsRowMapper()));
     }
 
     protected class QuestionsRowMapper implements RowMapper {
@@ -38,6 +38,8 @@ public class QuestionsDaoImpl implements QuestionsDao {
             question.setQuestionName(rs.getString("question_name"));
             question.setQuestionShortDescription(rs.getString("question_short_description"));
             question.setQuestionLongDescription(rs.getString("question_long_description"));
+            question.setQuestionText(rs.getString("question_text"));
+            question.setQuestionType(rs.getString("type_name"));
             return question;
         }
     }

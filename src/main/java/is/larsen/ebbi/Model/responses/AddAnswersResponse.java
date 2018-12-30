@@ -8,5 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddAnswersResponse extends BaseResponse {
 
-
+    public AddAnswersResponse(Integer status, String message) {
+        super(status, message);
+    }
 }

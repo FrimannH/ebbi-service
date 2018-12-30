@@ -1,13 +1,13 @@
 package is.larsen.ebbi.Model.requests;
 
 
-import is.larsen.ebbi.Model.Answer;
+import is.larsen.ebbi.Model.AnswerResponse;
 
 import java.util.List;
 
 public class AddAnswersRequest {
 
     private Integer customerId;
-    private List<Answer> answers;
+    private List<AnswerResponse> answerResponses;
 
 }

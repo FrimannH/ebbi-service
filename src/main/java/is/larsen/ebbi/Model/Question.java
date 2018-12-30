@@ -13,4 +13,6 @@ public class Question {
     private String questionName;
     private String questionShortDescription;
     private String questionLongDescription;
+    private String questionText;
+    private String questionType;
 }

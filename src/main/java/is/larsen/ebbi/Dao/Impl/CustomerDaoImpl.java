@@ -19,7 +19,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public Integer addCustomer(String customerName, String customerDescription) {
-        String query = "INSERT INTO Customer (customer_name, customer_description) VALUES(customerName, customerDescription);";
+        String query = "INSERT INTO Customers (customer_name, customer_description) VALUES (\"" + customerName + "\", \"" +customerDescription + "\");";
 
         return jdbcTemplate.update(query);
     }
@@ -28,12 +28,22 @@ public class CustomerDaoImpl implements CustomerDao {
     public GetCustomersResponse getCustomers() {
 
         List<Customer> customers = jdbcTemplate.query("SELECT * FROM Customers", new CustomerRowMapper());
-        return new GetCustomersResponse(customers);
+        return new GetCustomersResponse(0, "", customers);
+    }
+
+    public Customer getCustomer(Integer customerId) {
+
+        List<Customer> customers = jdbcTemplate.query("SELECT * FROM Customers", new CustomerRowMapper());
+        if ( customers.size() > 0) {
+            return customers.get(0);
+        } else {
+            return new Customer(0, "", "");
+        }
     }
 
     @Override
     public Integer deleteCustomer(Integer customerId) {
-        return jdbcTemplate.update("DELETE FROM Customer where customer_id = " + customerId + ";");
+        return jdbcTemplate.update("DELETE FROM Customers where customer_id = " + customerId + ";");
     }
 
     protected class CustomerRowMapper implements RowMapper {
