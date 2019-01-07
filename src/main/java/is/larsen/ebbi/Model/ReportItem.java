@@ -1,7 +1,5 @@
 package is.larsen.ebbi.Model;
 
-import is.larsen.ebbi.Model.ReportScore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +14,7 @@ public class ReportItem {
     private String questionText;
     private Integer count;
     private String ebbiScore;
-    private ReportScore reportScore;
+    private ReportScores reportScores;
     private ReportDetails reportDetails;
 
     public ReportItem(Integer questionId, String questionName, String questionShortDescription, String questionText, Integer count) {

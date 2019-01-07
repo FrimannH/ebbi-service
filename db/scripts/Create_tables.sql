@@ -19,6 +19,7 @@ CREATE TABLE Answers
   age                    INTEGER(9)    NOT NULL,
   income                 INTEGER(9)    NOT NULL,
   education              INTEGER(9)    NOT NULL,
+  promoter_score         INTEGER(9)    NOT NULL,
   switch_suppliers       SMALLINT      NOT NULL,
   country_code           VARCHAR(5)    NOT NULL,
   region                 VARCHAR(5),

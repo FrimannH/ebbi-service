@@ -1,5 +1,6 @@
 package is.larsen.ebbi.Model.responses;
 
+import is.larsen.ebbi.Model.PromoterScore;
 import is.larsen.ebbi.Model.ReportItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +14,6 @@ import java.util.List;
 public class GetReportResponse extends BaseResponse {
     private String customerName;
     private Integer customerId;
+    private PromoterScore promoterScore;
     private List<ReportItem> reportItems;
 }

@@ -7,14 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReportScore {
-    private Integer veryWell;
-    private Integer well;
-    private Integer moderate;
-    private Integer badly;
-    private Integer veryBadly;
-    private Integer validAnswers;
-    private Integer totalAnswers;
+public class ReportScores {
+    private Score veryWell;
+    private Score well;
+    private Score moderate;
+    private Score badly;
+    private Score veryBadly;
+    private Score validAnswers;
+    private Score totalAnswers;
+    private Score didNotAnswer;
     private String mean;
     private String median;
     private String standardDeviation;

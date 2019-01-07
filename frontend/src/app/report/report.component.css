@@ -34,7 +34,7 @@
   min-height: 15px;
 }
 
-.report_main {
+.report_header {
   font-size: 20px;
   border: solid;
   border-width: thin;
@@ -68,7 +68,6 @@
   border-bottom: solid;
   border-width: thin;
   border-top: solid;
-  border-width: thin;
   text-align: center;
 }
 
@@ -76,4 +75,89 @@
   font-weight: 700;
   text-align: center;
   margin: 15px 15px;
+}
+
+.report_detail_label {
+  display: inline-block;
+  width: 20%;
+}
+
+.report_detail_element {
+  display: inline-block;
+  width: 7%;
+  text-align: right;
+}
+
+.report_detail_score {
+  display: inline-block;
+  width: 45%;
+  text-align: left;
+  padding-left: 20%;
+}
+
+.report_detail_line {
+  margin: 1px;
+  display: block;
+  overflow: hidden;
+  border-style: inset;
+  border-width: 1px;
+}
+
+.report_score_label {
+  display: inline-block;
+  font-size: 12px;
+  width: 30%
+}
+
+.report_score_value {
+  display: inline-block;
+  font-size: 12px;
+  width: 20%;
+  text-align: right;
+}
+
+.report_score_percentage {
+  display: inline-block;
+  font-size: 12px;
+  width: 20%;
+  text-align: right;
+}
+
+.report_score_details {
+  display: inline-block;
+  width: 35%;
+}
+
+.report_summary {
+  display: inline-block;
+  width: 100%;
+}
+
+.report_score_description {
+  display: inline-block;
+  width: 65%;
+}
+
+.report_question_text {
+  font-size: 13px;
+}
+
+.report_description_label {
+  display: inline-block;
+  font-size: 12px;
+  width: 15%
+}
+
+.report_description_value {
+  display: inline-block;
+  font-size: 12px;
+  width: 15%;
+  text-align: right;
+}
+
+.report_color_filler{
+  background-color: coral;
+  height: 30px;
+  margin-bottom: 5px;
+  margin-top: 3px;
 }

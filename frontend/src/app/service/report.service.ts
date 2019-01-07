@@ -15,7 +15,7 @@ export class ReportService {
 
   private baseURL = 'http://localhost:9091';
 
-  updateSurvey(customerId: number, surveyResults: string[]): Observable<number> {
+  updateSurvey(customerId: number, surveyResults: string[]): Observable<UpdateSurveyResponse> {
     let body: string = "{\"customerId\":" + customerId + ", \"surveyResponses\": ["
     for(var i = 0; i < surveyResults.length; i++){
       var items = surveyResults[i].split(',');
@@ -40,12 +40,12 @@ export class ReportService {
     };
 
     return this.httpClient.post<UpdateSurveyResponse>(this.baseURL + '/update/survey', body, httpOptions)
-      .pipe(map(response => response.surveyUpdateCount)
+      .pipe(map(response => response)
     )};
 
-  deleteSurvey(customerId: number): Observable<number> {
+  deleteSurvey(customerId: number): Observable<DeleteSurveyResponse> {
     return this.httpClient.delete<DeleteSurveyResponse>(this.baseURL +  '/survey/' + customerId)
-      .pipe(map(response => response.statusCode))
+      .pipe(map(response => response))
     };
 
   getReport(customerId: number): Observable<GetReportResponse> {

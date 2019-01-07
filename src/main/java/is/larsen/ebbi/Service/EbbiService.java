@@ -15,11 +15,11 @@ public interface EbbiService {
 
     GetCustomersResponse deleteCustomer(Integer customerId);
 
-    BaseResponse updateSurvey(Integer customerId, List<AnswerRequest> surveyResponses);
+    UpdateSurveyResponse updateSurvey(Integer customerId, List<AnswerRequest> surveyResponses);
 
     GetReportResponse getReport(Integer customerId);
 
     GetAnswerResponse getAnswers(Integer customerId);
 
-    BaseResponse deleteAnswers(Integer customerId);
+    DeleteSurveyResponse deleteAnswers(Integer customerId);
 }

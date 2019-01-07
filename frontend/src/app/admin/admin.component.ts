@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Customer} from '../dto/customer';
 import { CustomerService } from '../service/customer.service';
 import { ReportService } from '../service/report.service';
+import { UpdateSurveyResponse } from '../dto/UpdateSurveyResponse';
+import { DeleteSurveyResponse } from '../dto/DeleteSurveyResponse';
 
 @Component({
   selector: 'admin-home',
@@ -16,51 +18,92 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.getCustomers();
+    this.deletedSurvey = false;
+    this.updatedSurvey = false;
   }
 
   private fileText;
   customerName: string = '';
   customerDescription: string = '';
-  inputFileLabelValue = 'Select report file to import';
-  customerId: number;
+  customerId1: number;
   customerId2: number;
-  surveyUpdates: number;
+  customerId3: number;
+  deletedSurvey: boolean;
+  updatedSurvey: boolean;
+  updatedSurveyCount: number
+  deletedSurveyCount: number
+  inputFileLabelValue = 'Select survey file to upload';
+  updateSurveyResponse: UpdateSurveyResponse;
+  deleteSurveyResponse: DeleteSurveyResponse;
   statusCode: number;
   customers: Customer[];
-//  customer: Customer;
+
 
   getCustomers(): void {
-    this.customerService.getCustomers().subscribe(customers => this.customers = customers);
+    //alert("get admin customers")
+    this.customerService.getCustomers().subscribe(customers => {
+      this.customers = customers;
+      //alert("Admin customer 1: " + customers[0].customerName)
+    });
   }
 
   addCustomer() {
+    this.deletedSurvey = false;
+    this.updatedSurvey = false;
     this.customerService.addCustomer(this.customerName, this.customerDescription).subscribe(customers => this.customers = customers);
   }
 
   deleteCustomer() {
-    this.customerService.deleteCustomer(this.customerId).subscribe(customers => this.customers = customers);
+    if (this.customerId1 != -1 && this.customerId1 !== undefined) {
+      this.deletedSurvey = false;
+      this.updatedSurvey = false;
+      this.customerService.deleteCustomer(this.customerId1).subscribe(customers => this.customers = customers);
+    }
   }
 
   uploadReportFile(event) {
-    var reader = new FileReader();
-    var adminComponent = this;
+    if (this.customerId2 != -1 && this.customerId2 !== undefined) {
+      this.deletedSurvey = false;
+      this.updatedSurvey = false;
+      var reader = new FileReader();
+      var adminComponent = this;
 
-    reader.onload = function(e) {
-      adminComponent.fileText = reader.result;
-      var lines = adminComponent.fileText.split('\n');
-      if ( lines.length > 0 && adminComponent.fileText == lines[0]) {
-        lines = adminComponent.fileText.split('\r')
+      reader.onload = function (e) {
+        adminComponent.fileText = reader.result;
+        var lines = adminComponent.fileText.split('\n');
+        if (lines.length > 0 && adminComponent.fileText == lines[0]) {
+          lines = adminComponent.fileText.split('\r')
+        }
+        adminComponent.reportService.updateSurvey(adminComponent.customerId2, lines).subscribe(updateSurveyResponse => {
+          adminComponent.updateSurveyResponse = updateSurveyResponse
+          if (adminComponent.updateSurveyResponse.statusCode == 0) {
+            adminComponent.updatedSurveyCount = adminComponent.updateSurveyResponse.rowsAffected;
+            adminComponent.updatedSurvey = true;
+          } else {
+            alert(adminComponent.updateSurveyResponse.message + "  " + adminComponent.updateSurveyResponse.statusCode)
+          }
+
+        });
       }
-      adminComponent.reportService.updateSurvey(adminComponent.customerId, lines).subscribe(surveyUpdates => {
-        adminComponent.surveyUpdates = surveyUpdates} );
+
+      reader.readAsText(event.target.files[0]);
+
     }
-
-    reader.readAsText(event.target.files[0]);
-
   }
 
   deleteSurvey() {
-     this.reportService.deleteSurvey(this.customerId2).subscribe(statusCode => this.statusCode = statusCode);
+    if (this.customerId3 != -1 && this.customerId3 !== undefined) {
+      this.deletedSurvey = false;
+      this.reportService.deleteSurvey(this.customerId3).subscribe(deleteSurveyResponse => {
+        this.deleteSurveyResponse = deleteSurveyResponse
+        if (this.deleteSurveyResponse.statusCode == 0) {
+          this.deletedSurveyCount = this.deleteSurveyResponse.rowsAffected;
+          this.deletedSurvey = true;
+        } else {
+          alert(this.deleteSurveyResponse.message + "   " + this.deleteSurveyResponse.statusCode)
+        }
+      });
+    }
   }
 
 }

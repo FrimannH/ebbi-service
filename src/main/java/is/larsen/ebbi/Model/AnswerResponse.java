@@ -17,6 +17,7 @@ public class AnswerResponse {
     private Integer income;
     private Integer education;
     private Integer switchSuppliers;
+    private Integer promoterValue;
     private String countryCode;
     private String region;
     private String timeStamp;

@@ -23,4 +23,6 @@ public class ReportDetails {
     private ReportDetailsData detractors;
     private ReportDetailsData passives;
     private ReportDetailsData promoters;
+    private ReportDetailsData switchSupplierYes;
+    private ReportDetailsData switchSupplierNo;
 }

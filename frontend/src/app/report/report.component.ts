@@ -3,7 +3,9 @@ import { Customer} from '../dto/customer';
 import { CustomerService } from '../service/customer.service';
 import { ReportService } from '../service/report.service';
 import { GetReportResponse } from '../dto/GetReportResponse';
+import { ReportItem } from '../dto/ReportItem';
 
+import { ReportScore } from '../dto/ReportScore';
 @Component({
   selector: 'report-home',
   templateUrl: './report.component.html',
@@ -15,7 +17,7 @@ export class ReportComponent implements OnInit {
               private reportService: ReportService) { }
 
   ngOnInit() {
-    this.getCustomers();
+    this.getReportCustomers();
     this.noDataDisplay = false;
     this.reportDataDisplay = true;
   }
@@ -24,23 +26,33 @@ export class ReportComponent implements OnInit {
   status: number
   noDataDisplay: boolean;
   reportDataDisplay: boolean;
-  customers: Customer[];
+  test = "test";
+  reportCustomers: Customer[];
   getReportResponse: GetReportResponse;
+  reportItems: ReportItem[];
+  reportItem: ReportItem;
 
-  getCustomers(): void {
-    this.customerService.getCustomers().subscribe(customers => this.customers = customers);
+  getReportCustomers(): void {
+    this.customerService.getCustomers().subscribe(customers => {
+      this.reportCustomers = customers; });
   }
 
   getReport() {
-    this.noDataDisplay = false;
-    this.reportDataDisplay = true
-    this.reportService.getReport(this.customerId).subscribe(getReportResponse => {
-       this.getReportResponse = getReportResponse;
-       if ( this.getReportResponse.statusCode == 0) {
-         this.noDataDisplay = true
-         this.reportDataDisplay = false;
-       }
-     });
-
+    if (this.customerId != -1 && this.customerId !== undefined) {
+      this.noDataDisplay = false;
+      this.reportDataDisplay = true
+      this.reportService.getReport(this.customerId).subscribe(getReportResponse => {
+        this.getReportResponse = getReportResponse;
+        //this.reportItems = this.getReportResponse.reportItems;
+        //alert("Report item count: " + this.reportItems.length);
+        //this.reportItem = this.reportItems[1];
+        //alert("Question 2: " + this.reportItem.questionShortDescription);
+        //this.test = this.reportItem.questionShortDescription;
+        if (this.getReportResponse.statusCode != 0) {
+          this.noDataDisplay = true
+          this.reportDataDisplay = false;
+        }
+      });
+    }
   }
 }

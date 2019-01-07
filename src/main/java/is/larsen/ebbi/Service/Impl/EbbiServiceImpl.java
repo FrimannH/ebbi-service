@@ -61,7 +61,7 @@ public class EbbiServiceImpl implements EbbiService {
     }
 
     @Override
-    public AddAnswersResponse updateSurvey(Integer customerId, List<AnswerRequest> surveyResponses) {
+    public UpdateSurveyResponse updateSurvey(Integer customerId, List<AnswerRequest> surveyResponses) {
 
         return answersDao.addAnswers(customerId, surveyResponses);
 
@@ -80,7 +80,7 @@ public class EbbiServiceImpl implements EbbiService {
     }
 
     @Override
-    public BaseResponse deleteAnswers(Integer customerId) {
+    public DeleteSurveyResponse deleteAnswers(Integer customerId) {
 
         return answersDao.deleteAnswers(customerId);
     }

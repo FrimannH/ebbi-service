@@ -9,8 +9,8 @@
     </div>
     <div class="customer_edit">
       <p class="admin_header">  Delete Customers</p>
-      <select class="customer_list" name="customer" (change)="customerId = $event.target.value">
-        <option value="">-- Select --</option>
+      <select class="customer_list" name="customer" (change)="customerId1 = $event.target.value">
+        <option value=-1>-- Select Customer --</option>
         <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
       </select>
       <button (click)="deleteCustomer()" class="customer_button">Delete</button>
@@ -22,20 +22,26 @@
     <div class="admin_report">
       <div class="customer_edit">
         <p class="admin_header">  Upload survey</p>
-        <select class="customer_list" name="customer" (change)="customerId = $event.target.value">
-          <option value="">-- Select --</option>
+        <select class="customer_list" name="customer" (change)="customerId2 = $event.target.value">
+          <option value=-2>-- Select Customer --</option>
           <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
         </select>
         <input id="report_input_file" (input)="uploadReportFile($event)" type="file" class="input_file admin_input" name="inputFilePathName">
         <label for="report_input_file" class="input_file_label admin_label">{{inputFileLabelValue}}</label>
+        <div class="update_survey" *ngIf="updatedSurvey">
+          <p>Survey updated, affected rows {{updatedSurveyCount}}</p>
+        </div>
       </div>
       <div class="customer_edit">
         <p class="admin_header">  Delete survey</p>
-        <select class="customer_list" name="customer" (change)="customerId2 = $event.target.value">
-          <option value="">-- Select --</option>
+        <select class="customer_list" name="customer" (change)="customerId3 = $event.target.value">
+          <option value=-3>-- Select Customer --</option>
           <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
         </select>
         <button (click)="deleteSurvey()" class="customer_button">Delete survey</button>
+        <div class="deleted_survey" *ngIf="deletedSurvey">
+          <p>Survey deleted, affected rows {{deletedSurveyCount}}</p>
+        </div>
       </div>
     </div>
   </div>

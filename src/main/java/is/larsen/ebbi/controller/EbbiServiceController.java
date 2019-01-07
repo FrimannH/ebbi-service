@@ -47,7 +47,7 @@ public class EbbiServiceController {
 
     //Update answers db with a survey results for one customer
     @RequestMapping(method =  RequestMethod.POST, value = "/update/survey" )
-    public BaseResponse updateSurvey(@RequestBody  UpdateSurveyRequest request) {
+    public UpdateSurveyResponse updateSurvey(@RequestBody  UpdateSurveyRequest request) {
         return ebbiService.updateSurvey(request.getCustomerId(), request.getSurveyResponses());
     }
 
@@ -67,7 +67,7 @@ public class EbbiServiceController {
 
     //Delete answers for a customer
     @RequestMapping(method = RequestMethod.DELETE, value = "/survey/{id}" )
-    public BaseResponse deleteQuestions(@PathVariable("id") Integer customerId) {
+    public DeleteSurveyResponse deleteQuestions(@PathVariable("id") Integer customerId) {
         return ebbiService.deleteAnswers(customerId);
     }
 
