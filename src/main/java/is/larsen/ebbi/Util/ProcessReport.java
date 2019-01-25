@@ -3,8 +3,7 @@ package is.larsen.ebbi.Util;
 
 import is.larsen.ebbi.Dao.Impl.CustomerDaoImpl;
 import is.larsen.ebbi.Model.*;
-import is.larsen.ebbi.Model.responses.GetReportResponse;
-import is.larsen.ebbi.Model.responses.ReportDetailsData;
+import is.larsen.ebbi.Model.responses.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import is.larsen.ebbi.Dao.Impl.QuestionsDaoImpl;
 
@@ -15,6 +14,8 @@ import java.text.DecimalFormat;
 
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.rank.*;
+
+import java.util.Map;
 
 public class ProcessReport {
 
@@ -43,11 +44,104 @@ public class ProcessReport {
         List<Question> questions = questionsDao.getQuestions().getQuestions();
 
         response.setReportItems(getReportItems(questions, answers, customer.getCustomerName()));
-        response.setPromoterScore(createPromoterScore( questions, answers));
+        response.setPromoterScore(createPromoterScoreData(answers));
+        response.setCustomerImportance(createCustomerImportance(questions, answers, customer.getCustomerName()));
+        response.setCustomerImportanceItems(createCustomerImportanceItems(questions, answers));
 
         response.setStatusCode(0);
 
         return response;
+    }
+
+    protected CustomerImportance createCustomerImportance(List<Question> questions, List<AnswerResponse> answers, String customerName) {
+        List<CustomerImportanceSummary> summary = new ArrayList<>();
+        CustomerImportance customerImportance = new CustomerImportance();
+
+        int[] summaryCount = new int[]{0};
+
+        questions.forEach(a -> {
+            List<AnswerResponse> filteredAnswers = answers.stream()
+                    .filter(an -> a.getQuestionId().equals(an.getQuestionId()))
+                    .filter(an -> (an.getQuestionType().equals(4)))
+                    .collect(Collectors.toList());
+            if (filteredAnswers.size() > 0) {
+               summaryCount[0]++;
+               summary.add(createSummary(filteredAnswers, a.getQuestionName(), summaryCount[0]));
+            }
+        });
+
+        customerImportance.setCustomerImportanceSummary(summary);
+
+        questions.forEach(a -> {
+            List<AnswerResponse> filteredAnswers = answers.stream()
+                    .filter(an -> a.getQuestionId().equals(an.getQuestionId()))
+                    .filter(an -> (an.getQuestionType().equals(3) ))
+                    .collect(Collectors.toList());
+            if ( filteredAnswers.size() > 0) {
+                ReportDetails reportDetails = createReportDetails(new ReportAnswers(a.getQuestionId(), a.getQuestionName(), a.getQuestionShortDescription(), a.getQuestionText(), filteredAnswers), 10.0);
+//                CustomerImportanceDetails customerImportanceDetails = new CustomerImportanceDetails(a.getQuestionLongDescription().replaceAll("the company", customerName).replaceAll("The company", customerName), reportDetails);
+                customerImportance.setCustomerImportanceDetails(reportDetails);
+                customerImportance.setCustomerImportanceQuestion(a.getQuestionLongDescription().replaceAll("the company", customerName).replaceAll("The company", customerName));
+            }
+        });
+
+        return customerImportance;
+    }
+
+    protected CustomerImportanceSummary createSummary(List<AnswerResponse> answers, String questionName, Integer count) {
+        CustomerImportanceSummary summary = new CustomerImportanceSummary();
+
+        summary.setQuestionName(questionName);
+        if ( answers.size() > 0) {
+            summary.setQuestionId(answers.get(0).getQuestionId());
+        }
+
+        List<Integer> answerValues = new ArrayList<Integer>();
+        answers.stream()
+                .forEach(an -> answerValues.add(an.getAnswerValue()));
+
+        Double mean = StatUtils.mean(answerValues.stream().mapToDouble(v -> v.doubleValue()).toArray());
+        summary.setQuestionScore(scoreFormatter.format(mean));
+        summary.setQuestionScorePercentage(getPercent(mean, 5.0, false));
+        summary.setQuestionCount(count);
+
+        return summary;
+    }
+
+    protected List<ReportItem> createCustomerImportanceItems(List<Question> questions, List<AnswerResponse> answers) {
+        List<ReportItem> items = new ArrayList<>();
+
+        List<ReportAnswers> answerList = new ArrayList<>();
+
+        questions.forEach(a -> {
+            List<AnswerResponse> filteredAnswers = answers.stream()
+                    .filter(an -> a.getQuestionId().equals(an.getQuestionId()))
+                    .filter(an -> (an.getQuestionType().equals(4)) )
+                    .collect(Collectors.toList());
+            if ( filteredAnswers.size() > 0) {
+                ReportAnswers reportAnswers = new ReportAnswers(a.getQuestionId(), a.getQuestionName(), a.getQuestionShortDescription(),a.getQuestionText(), filteredAnswers);
+                answerList.add(reportAnswers);
+            }
+        });
+        return calculateImportanceValues(answerList);
+
+    }
+
+    protected List<ReportItem> calculateImportanceValues(List<ReportAnswers> answerList) {
+        List<ReportItem> reportItems = new ArrayList<>();
+        answerList.forEach(a -> {
+            ReportItem reportItem = new ReportItem(a.getQuestionId(), a.getQuestionName());
+
+            List<Integer> answerValues = new ArrayList<Integer>();
+            a.getAnswers().stream()
+                    .forEach(an -> answerValues.add(an.getAnswerValue()));
+
+//            reportItem.setReportScores(createReportScore(answerValues));
+//            reportItem.setReportDetails(createReportDetails(a));
+
+            reportItems.add(reportItem);
+        });
+        return reportItems;
     }
 
     protected List<ReportItem> getReportItems(List<Question> questions, List<AnswerResponse> answers, String customerName) {
@@ -67,23 +161,82 @@ public class ProcessReport {
 
     }
 
-    protected PromoterScore createPromoterScore(List<Question> questions, List<AnswerResponse> answers) {
+    protected PromoterScore createPromoterScoreData(List<AnswerResponse> answers) {
         PromoterScore promoterScore = new PromoterScore();
 
-        List<ReportAnswers> answerList = new ArrayList<>();
+        List<AnswerResponse> filteredAnswers = answers.stream()
+               .filter(an -> (an.getQuestionType().equals(3)))
+               .collect(Collectors.toList());
 
-        questions.forEach(a -> {
-            List<AnswerResponse> filteredAnswers = answers.stream()
-                    .filter(an -> a.getQuestionId().equals(an.getQuestionId()))
-                    .filter(an -> (an.getQuestionType().equals(3)) )
-                    .collect(Collectors.toList());
-            if ( filteredAnswers.size() > 0) {
-                ReportAnswers reportAnswers = new ReportAnswers(a.getQuestionId(), a.getQuestionName(), a.getQuestionShortDescription(),a.getQuestionText(), filteredAnswers);
-                answerList.add(reportAnswers);
-            }
-        });
+        Integer total = filteredAnswers.size();
+
+        promoterScore.setDetractors(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(0) || a.getAnswerValue().equals(1)
+                             || a.getAnswerValue().equals(2) || a.getAnswerValue().equals(3)
+                             || a.getAnswerValue().equals(4) || a.getAnswerValue().equals(5)
+                             || a.getAnswerValue().equals(6)))
+        .collect(Collectors.toList()), total));
+
+        promoterScore.setPassives(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(7) || a.getAnswerValue().equals(8)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setPromoters(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(9) || a.getAnswerValue().equals(10)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore0(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(0)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore1(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(1)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore2(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(2)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore3(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(3)))
+                .collect(Collectors.toList()), total));
+
+
+        promoterScore.setScore4(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(4)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore5(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(5)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore6(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(6)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore7(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(7)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore8(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(8)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore9(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(9)))
+                .collect(Collectors.toList()), total));
+
+        promoterScore.setScore10(getPromoterScore(filteredAnswers.stream()
+                .filter(a -> (a.getAnswerValue().equals(10)))
+                .collect(Collectors.toList()), total));
 
         return promoterScore;
+    }
+
+    protected Score getPromoterScore(List<AnswerResponse> answers, Integer total) {
+        Integer value = answers.size();
+
+        return new Score(value, getPercent(value, total, false));
     }
 
     protected List<ReportItem> calculateValues(List<ReportAnswers> answerList, String customerName) {
@@ -96,89 +249,127 @@ public class ProcessReport {
                     .forEach(an -> answerValues.add(an.getAnswerValue()));
 
             reportItem.setReportScores(createReportScore(answerValues));
-            reportItem.setReportDetails(createReportDetails(a));
+            reportItem.setReportDetails(createReportDetails(a, 5.0));
 
             reportItems.add(reportItem);
         });
         return reportItems;
     }
 
-    protected ReportDetails createReportDetails(ReportAnswers reportAnswers) {
+    protected ReportDetails createReportDetails(ReportAnswers reportAnswers, Double totalScore) {
         ReportDetails reportDetails = new ReportDetails();
 
         reportDetails.setMale(createDetailsData(reportAnswers.getAnswers().stream()
-              .filter(a -> a.getGender().equals(1)).collect(Collectors.toList())));
+              .filter(a -> a.getGender().equals(1)).collect(Collectors.toList()), totalScore));
 
         reportDetails.setFemale(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> a.getGender().equals(2)).collect(Collectors.toList())));
+                .filter(a -> a.getGender().equals(2)).collect(Collectors.toList()), totalScore));
 
-        List<AnswerResponse> filteredList =reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getAge().equals(1) || a.getAge().equals(2))).collect(Collectors.toList());
+//        List<AnswerResponse> filteredList =reportAnswers.getAnswers().stream()
+//                .filter(a -> (a.getAge().equals(1) || a.getAge().equals(2))).collect(Collectors.toList());
 
         reportDetails.setAgeLessThan45(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getAge().equals(1) || a.getAge().equals(2))).collect(Collectors.toList())));
+                .filter(a -> (a.getAge().equals(1) || a.getAge().equals(2))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setAge46to55(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getAge().equals(3) || a.getAge().equals(4))).collect(Collectors.toList())));
+                .filter(a -> (a.getAge().equals(3) || a.getAge().equals(4))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setAge56to65(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getAge().equals(5) || a.getAge().equals(6))).collect(Collectors.toList())));
+                .filter(a -> (a.getAge().equals(5) || a.getAge().equals(6))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setAgeOver66(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getAge().equals(7) || a.getAge().equals(8))).collect(Collectors.toList())));
+                .filter(a -> (a.getAge().equals(7) || a.getAge().equals(8))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setIncome1(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getIncome().equals(1) || a.getIncome().equals(2))).collect(Collectors.toList())));
+                .filter(a -> (a.getIncome().equals(1) || a.getIncome().equals(2))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setIncome2(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getIncome().equals(3) || a.getIncome().equals(4))).collect(Collectors.toList())));
+                .filter(a -> (a.getIncome().equals(3) || a.getIncome().equals(4))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setEducation1(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getEducation().equals(1) || a.getEducation().equals(2) || a.getEducation().equals(3))).collect(Collectors.toList())));
+                .filter(a -> (a.getEducation().equals(1) || a.getEducation().equals(2) || a.getEducation().equals(3))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setEducation2(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getEducation().equals(3) || a.getEducation().equals(4) || a.getEducation().equals(5))).collect(Collectors.toList())));
+                .filter(a -> (a.getEducation().equals(3) || a.getEducation().equals(4) || a.getEducation().equals(5))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setDetractors(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getPromoterValue().equals(1) || a.getPromoterValue().equals(2) || a.getPromoterValue().equals(3) || a.getPromoterValue().equals(4) || a.getPromoterValue().equals(6) || a.getPromoterValue().equals(6))).collect(Collectors.toList())));
+                .filter(a -> (a.getPromoterValue().equals(1) || a.getPromoterValue().equals(2) || a.getPromoterValue().equals(3) || a.getPromoterValue().equals(4) || a.getPromoterValue().equals(6) || a.getPromoterValue().equals(6))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setPassives(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getPromoterValue().equals(7) || a.getPromoterValue().equals(8))).collect(Collectors.toList())));
+                .filter(a -> (a.getPromoterValue().equals(7) || a.getPromoterValue().equals(8))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setPromoters(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> (a.getPromoterValue().equals(9) || a.getPromoterValue().equals(10))).collect(Collectors.toList())));
+                .filter(a -> (a.getPromoterValue().equals(9) || a.getPromoterValue().equals(10))).collect(Collectors.toList()), totalScore));
 
         reportDetails.setSwitchSupplierNo(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> a.getSwitchSuppliers().equals(1)).collect(Collectors.toList())));
+                .filter(a -> a.getSwitchSuppliers().equals(1)).collect(Collectors.toList()), totalScore));
 
         reportDetails.setSwitchSupplierYes(createDetailsData(reportAnswers.getAnswers().stream()
-                .filter(a -> a.getSwitchSuppliers().equals(2)).collect(Collectors.toList())));
+                .filter(a -> a.getSwitchSuppliers().equals(2)).collect(Collectors.toList()), totalScore));
 
         return reportDetails;
     }
 
-    protected ReportDetailsData createDetailsData(List<AnswerResponse> answerList) {
+//    protected ReportDetailsData createPromoterDetailsData(List<AnswerResponse> answerList, Double totalScore) {
+//        ReportDetailsData reportDetails = new ReportDetailsData();
+//        Integer total = answerList.size();
+//
+//        reportDetails.setWell(getPercent(answerList.stream()
+//                .filter(a -> (a.getAnswerValue().equals(9) || a.getAnswerValue() .equals(10)))
+//                .collect(Collectors.toList()).size(), total, false));
+//
+//        reportDetails.setModerate(getPercent(answerList.stream()
+//                .filter(a -> (a.getAnswerValue().equals(7) || a.getAnswerValue().equals(8)))
+//                .collect(Collectors.toList()).size(), total, false));
+//
+//        reportDetails.setBadly(getPercent(answerList.stream()
+//                .filter(a -> (a.getAnswerValue().equals(1) || a.getAnswerValue().equals(2) || a.getAnswerValue().equals(3) || a.getAnswerValue().equals(4) || a.getAnswerValue().equals(5) || a.getAnswerValue().equals(6)))
+//                .collect(Collectors.toList()).size(), total, false));
+//
+//        String score = getScore(answerList);
+//
+//        reportDetails.setScore(score);
+//        reportDetails.setScorePercentage(getPercent(Double.valueOf(score), totalScore, false));
+//
+//        return reportDetails;
+//    }
+
+    protected ReportDetailsData createDetailsData(List<AnswerResponse> answerList, Double totalScore) {
         ReportDetailsData reportDetails = new ReportDetailsData();
         Integer total = answerList.size();
 
-        List<AnswerResponse> filteredList = answerList.stream()
-                .filter(a -> a.getAnswerValue().equals(0))
-        .collect(Collectors.toList());
+        if (totalScore > 6 ) {
+            reportDetails.setWell(getPercent(answerList.stream()
+                    .filter(a -> (a.getAnswerValue().equals(9) || a.getAnswerValue() .equals(10)))
+                    .collect(Collectors.toList()).size(), total, false));
 
-        reportDetails.setWell(getPercent(answerList.stream()
-                .filter(a -> a.getAnswerValue() .equals(5) || a.getAnswerValue() .equals(4))
-                .collect(Collectors.toList()).size(), total, false));
+            reportDetails.setModerate(getPercent(answerList.stream()
+                    .filter(a -> (a.getAnswerValue().equals(7) || a.getAnswerValue().equals(8)))
+                    .collect(Collectors.toList()).size(), total, false));
 
-        reportDetails.setModerate(getPercent(answerList.stream()
-                .filter(a -> a.getAnswerValue().equals(3))
-                .collect(Collectors.toList()).size(), total, false));
+            reportDetails.setBadly(getPercent(answerList.stream()
+                    .filter(a -> (a.getAnswerValue().equals(1) || a.getAnswerValue().equals(2) || a.getAnswerValue().equals(3) || a.getAnswerValue().equals(4) || a.getAnswerValue().equals(5) || a.getAnswerValue().equals(6)))
+                    .collect(Collectors.toList()).size(), total, false));
 
-        reportDetails.setBadly(getPercent(answerList.stream()
-                .filter(a -> a.getAnswerValue().equals(1) || a.getAnswerValue().equals(2))
-                .collect(Collectors.toList()).size(), total, false));
+        } else {
+            reportDetails.setWell(getPercent(answerList.stream()
+                    .filter(a -> a.getAnswerValue().equals(5) || a.getAnswerValue().equals(4))
+                    .collect(Collectors.toList()).size(), total, false));
 
-        String temp = getScore(answerList);
-        reportDetails.setScore(getScore(answerList));
+            reportDetails.setModerate(getPercent(answerList.stream()
+                    .filter(a -> a.getAnswerValue().equals(3))
+                    .collect(Collectors.toList()).size(), total, false));
+
+            reportDetails.setBadly(getPercent(answerList.stream()
+                    .filter(a -> a.getAnswerValue().equals(1) || a.getAnswerValue().equals(2))
+                    .collect(Collectors.toList()).size(), total, false));
+
+        }
+
+        String score = getScore(answerList);
+
+        reportDetails.setScore(score);
+        reportDetails.setScorePercentage(getPercent(Double.valueOf(score), totalScore, false));
 
         return reportDetails;
     }
@@ -229,6 +420,20 @@ public class ProcessReport {
                 .collect(Collectors.toList()).size();
 
         return new Score(value, getPercent(value, total, true));
+    }
+
+    protected String getPercent(Double value, Double total, Boolean numberFormat) {
+        if ( value < total) {
+            double percent = (double)value/(double)total;
+            if ( numberFormat) {
+                return scoreFormatter.format(percent);
+            } else {
+                return percentFormatter.format(percent);
+            }
+        } else {
+            return "100%";
+        }
+
     }
 
     protected String getPercent(Integer value, Integer total, Boolean numberFormat) {

@@ -16,4 +16,6 @@ public class GetReportResponse extends BaseResponse {
     private Integer customerId;
     private PromoterScore promoterScore;
     private List<ReportItem> reportItems;
+    private CustomerImportance customerImportance;
+    private List<ReportItem> customerImportanceItems;
 }

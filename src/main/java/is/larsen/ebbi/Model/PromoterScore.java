@@ -12,14 +12,15 @@ public class PromoterScore {
     private Score detractors;
     private Score passives;
     private Score promoters;
-    private Integer score1Count;
-    private Integer score2Count;
-    private Integer score3Count;
-    private Integer score4Count;
-    private Integer score5Count;
-    private Integer score6Count;
-    private Integer score7Count;
-    private Integer score8Count;
-    private Integer score9Count;
-    private Integer score10Count;
+    private Score score0;
+    private Score score1;
+    private Score score2;
+    private Score score3;
+    private Score score4;
+    private Score score5;
+    private Score score6;
+    private Score score7;
+    private Score score8;
+    private Score score9;
+    private Score score10;
 }

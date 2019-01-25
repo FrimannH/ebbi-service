@@ -19,7 +19,7 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.getReportCustomers();
     this.noDataDisplay = false;
-    this.reportDataDisplay = true;
+    this.reportDataDisplay = false;
   }
 
   customerId: number;
@@ -40,15 +40,13 @@ export class ReportComponent implements OnInit {
   getReport() {
     if (this.customerId != -1 && this.customerId !== undefined) {
       this.noDataDisplay = false;
-      this.reportDataDisplay = true
+      this.reportDataDisplay = false;
       this.reportService.getReport(this.customerId).subscribe(getReportResponse => {
         this.getReportResponse = getReportResponse;
-        //this.reportItems = this.getReportResponse.reportItems;
-        //alert("Report item count: " + this.reportItems.length);
-        //this.reportItem = this.reportItems[1];
-        //alert("Question 2: " + this.reportItem.questionShortDescription);
-        //this.test = this.reportItem.questionShortDescription;
-        if (this.getReportResponse.statusCode != 0) {
+        if (this.getReportResponse.statusCode == 0) {
+          this.noDataDisplay = false
+          this.reportDataDisplay = true;
+        } else {
           this.noDataDisplay = true
           this.reportDataDisplay = false;
         }

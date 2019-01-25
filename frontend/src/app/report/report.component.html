@@ -25,9 +25,13 @@
         {{getReportResponse.description}}
       </div>
       <div class="report_data">
-        <div *ngFor='let reportItem of getReportResponse.reportItems' class="report_item">
+        <div *ngFor='let reportItem of getReportResponse.reportItems' class="report_item_container">
+          <div class="report_item">
           <div class="report_score">
             <div class="report_score_details">
+              <div class="report_score_pie_container">
+
+              </div>
               <div class="report_score_breakdown"></div>
               <div class="report_summary">
                 <div>
@@ -101,6 +105,9 @@
                 </div>
               </div>
             </div>
+            <div class="report_item_image">
+              <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+            </div>
             <div>
               <div class="question_details_header">
                 <p class="question_paragraph">Detailed Analysis: {{reportItem.questionShortDescription}}</p>
@@ -114,121 +121,634 @@
                   <div class="report_detail_score"></div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">Male:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.male.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.male.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.male.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.male.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_male" [style.width]="reportItem.reportDetails.male.scorePercentage">
+                      <span>{{reportItem.reportDetails.male.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">Female:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.female.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.female.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.female.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.female.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_female" [style.width]="reportItem.reportDetails.female.scorePercentage">
+                      <span>{{reportItem.reportDetails.female.score}}</span>
+                    </div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">45 year:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.ageLessThan45.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.ageLessThan45.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.ageLessThan45.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.ageLessThan45.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_45" [style.width]="reportItem.reportDetails.ageLessThan45.scorePercentage">
+                      <span>{{reportItem.reportDetails.ageLessThan45.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">46-55 year:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.age46to55.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.age46to55.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.age46to55.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.age46to55.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_46" [style.width]="reportItem.reportDetails.age46to55.scorePercentage">
+                      <span>{{reportItem.reportDetails.age46to55.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">56-65 year:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.age56to65.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.age56to65.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.age56to65.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.age56to65.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_56" [style.width]="reportItem.reportDetails.age56to65.scorePercentage">
+                      <span>{{reportItem.reportDetails.age56to65.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">66>:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.ageOver66.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.ageOver66.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.ageOver66.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.ageOver66.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_66" [style.width]="reportItem.reportDetails.ageOver66.scorePercentage">
+                      <span>{{reportItem.reportDetails.ageOver66.score}}</span>
+                    </div>
+                  </div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">Less than kr 400k>:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.income1.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.income1.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.income1.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.income1.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_l400k" [style.width]="reportItem.reportDetails.income1.scorePercentage">
+                      <span>{{reportItem.reportDetails.income1.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">More than kr 400k:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.income2.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.income2.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.income2.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.income2.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_g400k" [style.width]="reportItem.reportDetails.income2.scorePercentage">
+                      <span>{{reportItem.reportDetails.income2.score}}</span>
+                    </div>
+                  </div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">No university Degree:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.education1.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.education1.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.education1.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.education1.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_no_degree" [style.width]="reportItem.reportDetails.education1.scorePercentage">
+                      <span>{{reportItem.reportDetails.education1.score}}</span>
+                    </div>
+                   </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">University degree:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.education2.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.education2.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.education2.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.education2.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_degree" [style.width]="reportItem.reportDetails.education2.scorePercentage">
+                      <span>{{reportItem.reportDetails.education2.score}}</span>
+                    </div>
+                  </div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">Detractors:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.detractors.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.detractors.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.detractors.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.detractors.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_detractor" [style.width]="reportItem.reportDetails.detractors.scorePercentage">
+                      <span>{{reportItem.reportDetails.detractors.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">Passives:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.passives.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.passives.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.passives.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.passives.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_passive" [style.width]="reportItem.reportDetails.passives.scorePercentage">
+                      <span>{{reportItem.reportDetails.passives.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">Promoters:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.promoters.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.promoters.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.promoters.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.promoters.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_promoter" [style.width]="reportItem.reportDetails.promoters.scorePercentage">
+                      <span>{{reportItem.reportDetails.promoters.score}}</span>
+                    </div>
+                  </div>
                 </div>
                 <hr class="report_detail_line">
                 <p>Have you switched energy suppliers (for other reason than moving)</p>
                 <hr class="report_detail_line">
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">No:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.switchSupplierNo.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.switchSupplierNo.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.switchSupplierNo.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.switchSupplierNo.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_no" [style.width]="reportItem.reportDetails.switchSupplierNo.scorePercentage">
+                      <span>{{reportItem.reportDetails.switchSupplierNo.score}}</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div class="report_details">
                   <div class="report_detail_label">Yes:</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.switchSupplierYes.well}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.switchSupplierYes.moderate}}</div>
                   <div class="report_detail_element">{{reportItem.reportDetails.switchSupplierYes.badly}}</div>
-                  <div class="report_detail_score">Score:  {{reportItem.reportDetails.switchSupplierYes.score}}</div>
+                  <div class="report_detail_score">
+                    <div class="detail_analysis_score detail_beckground_yes" [style.width]="reportItem.reportDetails.switchSupplierYes.scorePercentage">
+                      <span>{{reportItem.reportDetails.switchSupplierYes.score}}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-      </div>  <!--report item-->
+          </div>  <!--report item-->
+          <div class="report_item_devider">
+            <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+          </div>
+      </div> <!--report item contaier-->
     </div>  <!--report data-->
+    <div>
+      <div class="report_promoter_container">
+        <div class="report_promoter_item">
+          <hr class="report_detail_line">
+          <div class="report_promoter_header">
+            NET PROMOTER SCORE
+          </div>
+          <hr class="report_detail_line">
+          <div class="promoter_details">
+            <div class="promoter_detail_description">
+              As a brand you would like to know how good or bad was the experience of a consumer such that they would - Promote your brand, stay Passive or even Detract from your brand. For this reason the EBBI survey includes the measuring of your brand’s net promoter score.
+            </div>
+            <div class="report_promoter_desciption">
+              <div class="report_promoter_question">
+                How likely are you to recommend {{getReportResponse.customerName}} to a friend/colleague/relative?
+              </div>
+              <div class="promoter_scale">
+                <div class="promoter_scale_text_left">Very Unlikely</div>
+                <div class="promoter_scale_table">
+                  <table class="promoter_score_table">
+                    <tr class="promoter_table_row">
+                      <th class="promoter_table_cellr">1</th>
+                      <th class="promoter_table_cellr">2</th>
+                      <th class="promoter_table_cellr">3</th>
+                      <th class="promoter_table_cellr">4</th>
+                      <th class="promoter_table_cellr">5</th>
+                      <th class="promoter_table_cellr">6</th>
+                      <th class="promoter_table_celly">7</th>
+                      <th class="promoter_table_celly">8</th>
+                      <th class="promoter_table_cellg">9</th>
+                      <th class="promoter_table_cellg">10</th>
+                    </tr>
+                  </table>
+                </div>
+                <div class="promoter_scale_text_right">Very Likely</div>
+                <div class="promoter_image_filler"></div>
+                <div class="promoter_image_container">
+                  <img atl="Promoter score" class="promoter_score_image" src=".\assets\ebbi_report\img\promoter_score.png" width="100%" height="100%">
+                </div>
+                <div class="promoter_image_filler"></div>
+              </div>
+            </div>
+            <div class="report_promoter_text">
+              <div class="report_promotor_text_paragraph">
+                Net Promoter Score (NPS) is a mathematical classification of a consumer’s brand loyalty. Usually measured within the scale of 1-10, it provides a simplified, yet highly effective vision of a provider’s brand popularity and share-ability amongst its consumers
+              </div>
+              <div class="report_promotor_text_paragraph">
+                The Net Promoter Score Question is simple but the responses collected to this one question could be critical to your organization’s growth strategy. This is especially the case when you are considering the future of your product/service and how it can grow “organically” through word-of-mouth
+              </div>
+              <div class="report_promotor_text_paragraph">
+                You are further able to use your customers’ NPS score as a background variable to explore your brand’s results on all the EBBI constructs.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="report_item_devider">
+          <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+        </div>
+        <div class="report_promoter_item">
+          <hr class="report_detail_line">
+          <div class="report_promoter_header">
+            NET PROMOTER SCORE
+            <hr class="report_detail_line">
+          </div>
+          <div class="promoter_horizontal_bar">
+            <li class="chart__bar protractors" [style.width]="getReportResponse.promoterScore.detractors.percentage">
+              <span class="chart__label_protractors">{{getReportResponse.promoterScore.detractors.percentage}}</span>
+            </li>
+            <li class="chart__bar passives" [style.width]="getReportResponse.promoterScore.passives.percentage">
+              <span class="chart__label_passives">{{getReportResponse.promoterScore.passives.percentage}}</span>
+            </li>
+            <li class="chart__bar promoters" [style.width]="getReportResponse.promoterScore.promoters.percentage">
+              <span class="chart__label_promoters">{{getReportResponse.promoterScore.promoters.percentage}}</span>
+            </li>
+          </div>
+          <div class="promoter_horizontal_bar_subtext">
+            <div class="promoter_detractor_subtext">
+              <div class="promoter_detractor_box"></div>
+              <div class="promoter_inline_box">
+                Detractors (0-6)
+              </div>
+              <div class="promoter_passive_box"></div>
+              <div class="promoter_inline_box">
+                Passives (7-8)
+              </div>
+              <div class="promoter_promoter_box"></div>
+              <div class="promoter_inline_box">
+                Promoters (9-10)
+              </div>
+            </div>
+          </div>
+          <div class="promoter_breakdown_container">
+            <div class="promoter_breakdown_text">
+              Response breakdown
+            </div>
+            <div class="promoter_horizontal_breakdown_bar">
+              <li class="chart__bar score0" [style.width]="getReportResponse.promoterScore.score0.percentage">
+                <span class="chart__label_protractors"></span>
+              </li>
+              <li class="chart__bar score1" [style.width]="getReportResponse.promoterScore.score1.percentage">
+                <span class="chart__label_passives"></span>
+              </li>
+              <li class="chart__bar score2" [style.width]="getReportResponse.promoterScore.score2.percentage">
+                <span class="chart__label_protractors"></span>
+              </li>
+              <li class="chart__bar score3" [style.width]="getReportResponse.promoterScore.score3.percentage">
+                <span class="chart__label_passives"></span>
+              </li>
+              <li class="chart__bar score4" [style.width]="getReportResponse.promoterScore.score4.percentage">
+                <span class="chart__label_protractors"></span>
+              </li>
+              <li class="chart__bar score5" [style.width]="getReportResponse.promoterScore.score5.percentage">
+                <span class="chart__label_passives"></span>
+              </li>
+              <li class="chart__bar score6" [style.width]="getReportResponse.promoterScore.score6.percentage">
+                <span class="chart__label_protractors"></span>
+              </li>
+              <li class="chart__bar score7" [style.width]="getReportResponse.promoterScore.score7.percentage">
+                <span class="chart__label_passives"></span>
+              </li>
+              <li class="chart__bar score8" [style.width]="getReportResponse.promoterScore.score8.percentage">
+                <span class="chart__label_protractors"></span>
+              </li>
+              <li class="chart__bar score9" [style.width]="getReportResponse.promoterScore.score9.percentage">
+                <span class="chart__label_passives"></span>
+              </li>
+            </div>
+          </div>
+          <div class="promoter_details">
+            <div>
+              <div class="promoter_detail_label">Net Promoter Score</div>
+              <div class="report_detail_element"></div>
+            </div>
+            <div>
+              <div>
+               <div class="promoter_detail_label">Detractors (0-6)</div>
+                <div class="report_detail_element">{{getReportResponse.promoterScore.detractors.value}}</div>
+                <div class="report_detail_element">{{getReportResponse.promoterScore.detractors.percentage}}</div>
+              </div>
+              <div>
+                <div class="promoter_detail_label">Passives (7-8)</div>
+                <div class="report_detail_element">{{getReportResponse.promoterScore.passives.value}}</div>
+                <div class="report_detail_element">{{getReportResponse.promoterScore.passives.percentage}}</div>
+              </div>
+              <div>
+                <div class="promoter_detail_label">Promoters (9-10)</div>
+                <div class="report_detail_element">{{getReportResponse.promoterScore.promoters.value}}</div>
+                <div class="report_detail_element">{{getReportResponse.promoterScore.promoters.percentage}}</div>
+              </div>
+            </div>
+          </div> <!--report promoter details-->
+          <div class="promoter_vertical_bar_container">
+            <div class="promoter_vertical_bar_text">
+              How likely are you to recommend brand X to a friend/colleague/relative?
+            </div>
+            <div class="promoter_bar_container">
+              <table class="promoter_bar_table">
+                <tr class="promoter_bar_row">
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score0.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score0.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score1.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar1" [style.height]="getReportResponse.promoterScore.score1.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score2.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score2.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score3.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score3.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score4.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score5.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score5.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score5.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score6.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score6.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score7.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score7.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score8.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score8.percentage">
+                    </div>
+                  </td>
+                  <td class="promoter_bar_column">
+                    <div class="promoter_bar_percentage">
+                      {{getReportResponse.promoterScore.score9.percentage}}
+                    </div>
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score9.percentage">
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div> <!--report promoter container-->
+      <div class="report_item_devider">
+        <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+      </div>
+    </div>
+    <div class="customer_importance_summary">
+      <hr class="report_detail_line">
+      <div class="importance_summary_header">
+        WHAT DO YOUR CUSTOMERS VALUE AS IMPORTANT?
+      </div>
+      <hr class="report_detail_line">
+      <div class="customer_importance_bars">
+        <div *ngFor='let reporImportancetItem of getReportResponse.customerImportance.customerImportanceSummary' class="importance_bar_container">
+          <div class="importance_question_name">
+            {{reporImportancetItem.questionName}}
+          </div>
+          <div class="importance_bar{{reporImportancetItem.questionCount}}" [style.width]="reporImportancetItem.questionScorePercentage">
+              <span>{{reporImportancetItem.questionScore}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="importance_summary_description">
+        Knowing what your customers value as important can be crucial information when building both your business and branding strategy. If your strategy does not align with the things your customers find most important it can cause trouble for your brand and your positioning on the market. The four factors shown above have all been proven to be important when it comes to customer satisfaction and brand image. They can vary depending on country, culture and customer segments but they can give you valuable information on what your brand focus on
+      </div>
+      <div class="importance_filler"></div>
+    </div>
+      <div class="report_item_devider">
+        <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+      </div>
+      <div class="question_details_container">
+        <div class="question_details_header">
+          <p class="question_paragraph">Detailed Analysis: {{getReportResponse.customerImportance.customerImportanceQuestion}}</p>
+        </div>
+          <div class="question_details">
+            <div class="report_detail_header">
+              <div class="report_detail_label"></div>
+              <div class="report_detail_element">Well</div>
+              <div class="report_detail_element">Moderate</div>
+              <div class="report_detail_element">Badly</div>
+              <div class="report_detail_score"></div>
+            </div>
+            <hr class="report_detail_line">
+            <div class="report_details">
+              <div class="report_detail_label">Male:</div>
+              <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.male.well}}</div>
+              <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.male.moderate}}</div>
+              <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.male.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_male" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.male.scorePercentage">
+                  <span>{{getReportResponse.customerImportance.customerImportanceDetails.male.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">Female:</div>
+              <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.female.well}}</div>
+              <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.female.moderate}}</div>
+              <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.female.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_female" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.female.scorePercentage">
+                  <span>{{getReportResponse.customerImportance.customerImportanceDetails.female.score}}</span>
+                </div>
+              </div>
+              <hr class="report_detail_line">
+              <div class="report_details">
+                <div class="report_detail_label">45 year:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.ageLessThan45.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.ageLessThan45.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.ageLessThan45.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_45" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.ageLessThan45.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.ageLessThan45.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">46-55 year:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.age46to55.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.age46to55.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.age46to55.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_46" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.age46to55.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.age46to55.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">56-65 year:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.age56to65.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.age56to65.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.age56to65.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_56" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.age56to65.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.age56to65.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">66>:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.ageOver66.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.ageOver66.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.ageOver66.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_66" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.ageOver66.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.ageOver66.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <hr class="report_detail_line">
+              <div class="report_details">
+                <div class="report_detail_label">Less than kr 400k>:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.income1.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.income1.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.income1.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_l400k" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.income1.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.income1.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">More than kr 400k:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.income2.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.income2.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.income2.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_g400k" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.income2.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.income2.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <hr class="report_detail_line">
+              <div class="report_details">
+                <div class="report_detail_label">No university Degree:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.education1.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.education1.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.education1.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_no_degree" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.education1.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.education1.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">University degree:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.education2.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.education2.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.education2.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_degree" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.education2.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.education2.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <hr class="report_detail_line">
+              <div class="report_details">
+                <div class="report_detail_label">Detractors:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.detractors.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.detractors.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.detractors.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_detractor" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.detractors.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.detractors.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">Passives:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.passives.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.passives.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.passives.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_passive" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.passives.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.passives.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">Promoters:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.promoters.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.promoters.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.promoters.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_promoter" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.promoters.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.promoters.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <hr class="report_detail_line">
+              <p>Have you switched energy suppliers (for other reason than moving)</p>
+              <hr class="report_detail_line">
+              <div class="report_details">
+                <div class="report_detail_label">No:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierNo.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierNo.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierNo.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_no" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.switchSupplierNo.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierNo.score}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="report_details">
+                <div class="report_detail_label">Yes:</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierYes.well}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierYes.moderate}}</div>
+                <div class="report_detail_element">{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierYes.badly}}</div>
+                <div class="report_detail_score">
+                  <div class="detail_analysis_score detail_beckground_yes" [style.width]="getReportResponse.customerImportance.customerImportanceDetails.switchSupplierYes.scorePercentage">
+                    <span>{{getReportResponse.customerImportance.customerImportanceDetails.switchSupplierYes.score}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <div class="report_bottom"></div>
   </div> <!--report container-->
 </div>  <!--report-->

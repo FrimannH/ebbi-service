@@ -13,4 +13,5 @@ public class ReportDetailsData {
     private String moderate;
     private String badly;
     private String score;
+    private String scorePercentage;
 }

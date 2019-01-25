@@ -24,4 +24,9 @@ public class ReportItem {
         this.questionText = questionText;
         this.count = count;
     }
+
+    public ReportItem(Integer questionId, String questionName) {
+        this.questionId = questionId;
+        this.questionName = questionName;
+    }
 }
