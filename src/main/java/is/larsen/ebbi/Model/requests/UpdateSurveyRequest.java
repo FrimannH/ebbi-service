@@ -10,5 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateSurveyRequest implements Serializable {
     private Integer customerId;
+    private String surveyStartDate;
+    private String surveyEndDate;
+    private String surveyAgeFrom;
+    private String surveyAgeTo;
     private List<AnswerRequest> surveyResponses;
 }

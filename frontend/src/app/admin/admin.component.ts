@@ -25,6 +25,10 @@ export class AdminComponent implements OnInit {
   private fileText;
   customerName: string = '';
   customerDescription: string = '';
+  surveyStartDate: string = '';
+  surveyEndDate: string = '';
+  surveyAgeFrom: string = "";
+  surveyAgeTo: string = "";
   customerId1: number;
   customerId2: number;
   customerId3: number;
@@ -43,7 +47,6 @@ export class AdminComponent implements OnInit {
     //alert("get admin customers")
     this.customerService.getCustomers().subscribe(customers => {
       this.customers = customers;
-      //alert("Admin customer 1: " + customers[0].customerName)
     });
   }
 
@@ -74,7 +77,7 @@ export class AdminComponent implements OnInit {
         if (lines.length > 0 && adminComponent.fileText == lines[0]) {
           lines = adminComponent.fileText.split('\r')
         }
-        adminComponent.reportService.updateSurvey(adminComponent.customerId2, lines).subscribe(updateSurveyResponse => {
+        adminComponent.reportService.updateSurvey(adminComponent.customerId2, lines, adminComponent.surveyStartDate, adminComponent.surveyEndDate, adminComponent.surveyAgeFrom, adminComponent.surveyAgeTo).subscribe(updateSurveyResponse => {
           adminComponent.updateSurveyResponse = updateSurveyResponse
           if (adminComponent.updateSurveyResponse.statusCode == 0) {
             adminComponent.updatedSurveyCount = adminComponent.updateSurveyResponse.rowsAffected;

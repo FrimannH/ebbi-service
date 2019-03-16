@@ -2,6 +2,7 @@ package is.larsen.ebbi.Service.Impl;
 
 import is.larsen.ebbi.Dao.QuestionsDao;
 import is.larsen.ebbi.Model.requests.AnswerRequest;
+import is.larsen.ebbi.Model.requests.UpdateSurveyRequest;
 import is.larsen.ebbi.Model.responses.*;
 import is.larsen.ebbi.Service.EbbiService;
 import is.larsen.ebbi.Model.*;
@@ -61,9 +62,9 @@ public class EbbiServiceImpl implements EbbiService {
     }
 
     @Override
-    public UpdateSurveyResponse updateSurvey(Integer customerId, List<AnswerRequest> surveyResponses) {
+    public UpdateSurveyResponse updateSurvey(UpdateSurveyRequest request) {
 
-        return answersDao.addAnswers(customerId, surveyResponses);
+        return answersDao.addAnswers(request);
 
     }
 

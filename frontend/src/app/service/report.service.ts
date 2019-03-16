@@ -15,8 +15,11 @@ export class ReportService {
 
   private baseURL = 'http://localhost:9091';
 
-  updateSurvey(customerId: number, surveyResults: string[]): Observable<UpdateSurveyResponse> {
-    let body: string = "{\"customerId\":" + customerId + ", \"surveyResponses\": ["
+  updateSurvey(customerId: number, surveyResults: string[], surveyStartDate: string, surveyEndDate: string, surveyAgeFrom:string, surveyAgeTo: string ): Observable<UpdateSurveyResponse> {
+    let body: string = "{\"customerId\":" + customerId +
+    ", \"surveyStartDate\":\""  + surveyStartDate + "\", \"surveyEndDate\":\"" + surveyEndDate + "\"" +
+    ", \"surveyAgeFrom\":\""  +  surveyAgeFrom+ "\", \"surveyAgeTo\":\"" + surveyAgeTo + "\"" +
+    ", \"surveyResponses\": ["
     for(var i = 0; i < surveyResults.length; i++){
       var items = surveyResults[i].split(',');
       var answer = "{\"countryCode\":\"" + items[0] + "\",\"region\": \"" + items[1] + "\"" ;
@@ -25,6 +28,7 @@ export class ReportService {
         questionCount = j-1;
         answer = answer + ", \"question" + questionCount + "\":\"" + items[j] + "\"";
       }
+
       answer = answer + "}";
       if ( i > 0) {
         body = body + ",";

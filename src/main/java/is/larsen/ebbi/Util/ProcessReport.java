@@ -4,18 +4,20 @@ package is.larsen.ebbi.Util;
 import is.larsen.ebbi.Dao.Impl.CustomerDaoImpl;
 import is.larsen.ebbi.Model.*;
 import is.larsen.ebbi.Model.responses.*;
+import org.apache.commons.math3.util.MathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import is.larsen.ebbi.Dao.Impl.QuestionsDaoImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.text.DecimalFormat;
+import javafx.util.Pair;
 
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.rank.*;
-
-import java.util.Map;
+import java.lang.Math;
 
 public class ProcessReport {
 
@@ -29,11 +31,23 @@ public class ProcessReport {
     private static DecimalFormat percentFormatter = new DecimalFormat("##.##%");
     private static DecimalFormat scoreFormatter = new DecimalFormat("##.##");
 
-    public GetReportResponse processReport(Integer customerId, List<AnswerResponse> answers) {
+    public GetReportResponse processReport(Integer customerId,
+                                           List<AnswerResponse> answers,
+                                           String customerName,
+                                           String customerDescription,
+                                           String startDate,
+                                           String endDate,
+                                           String ageGapFrom,
+                                           String ageGapTo) {
+
         GetReportResponse response = new GetReportResponse();
-        Customer customer = customerDao.getCustomer(customerId);
-        response.setCustomerName(customer.getCustomerName());
+        response.setCustomerName(customerName);
         response.setCustomerId(customerId);
+        response.setReportStartDate(startDate);
+        response.setReportEndDate(endDate);
+        response.setAgeRangeFrom(ageGapFrom);
+        response.setAgeRaneTo(ageGapTo);
+
 
         if ( answers.size() == 0) {
             response.setStatusCode(4000);
@@ -42,15 +56,50 @@ public class ProcessReport {
         }
 
         List<Question> questions = questionsDao.getQuestions().getQuestions();
+        HashMap<Integer, Double> ebbiScores = questionsDao.GetEbbiScore();
 
-        response.setReportItems(getReportItems(questions, answers, customer.getCustomerName()));
+        response.setReportItems(getReportItems(questions, answers, customerName, ebbiScores));
         response.setPromoterScore(createPromoterScoreData(answers));
-        response.setCustomerImportance(createCustomerImportance(questions, answers, customer.getCustomerName()));
+        response.setCustomerImportance(createCustomerImportance(questions, answers, customerName));
         response.setCustomerImportanceItems(createCustomerImportanceItems(questions, answers));
+
+        response.setSegmentation(getScoreFormulation(answers.stream()
+                .filter(an -> (an.getScoreFormulation().equals(1)))
+                .collect(Collectors.toList())));
+
+        response.setDifferentiation(getScoreFormulation(answers.stream()
+                .filter(an -> (an.getScoreFormulation().equals(2)))
+                .collect(Collectors.toList())));
+
+        response.setImageAndPerception(getScoreFormulation(answers.stream()
+                .filter(an -> (an.getScoreFormulation().equals(3)))
+                .collect(Collectors.toList())));
+
+        response.setRespondentCount(getRespondentCount(answers));
 
         response.setStatusCode(0);
 
         return response;
+    }
+
+    protected String getRespondentCount(List<AnswerResponse> answers) {
+        //get respondent count by checking answers to first question
+       List<AnswerResponse> filteredAnswers =  answers.stream()
+                .filter(a -> a.getQuestionId().equals(1))
+                .collect(Collectors.toList());
+
+        return Integer.toString(filteredAnswers.size());
+    }
+
+    protected String getScoreFormulation(List<AnswerResponse> answers) {
+        List<Integer> answerValues = new ArrayList<>();
+        answers.stream()
+                .forEach(a -> answerValues.add(a.getAnswerValue()));
+
+        Double mean = StatUtils.mean(answerValues.stream().mapToDouble(v -> v.doubleValue()).toArray());
+
+        return getPercent(mean, 5.0, true);
+
     }
 
     protected CustomerImportance createCustomerImportance(List<Question> questions, List<AnswerResponse> answers, String customerName) {
@@ -79,7 +128,6 @@ public class ProcessReport {
                     .collect(Collectors.toList());
             if ( filteredAnswers.size() > 0) {
                 ReportDetails reportDetails = createReportDetails(new ReportAnswers(a.getQuestionId(), a.getQuestionName(), a.getQuestionShortDescription(), a.getQuestionText(), filteredAnswers), 10.0);
-//                CustomerImportanceDetails customerImportanceDetails = new CustomerImportanceDetails(a.getQuestionLongDescription().replaceAll("the company", customerName).replaceAll("The company", customerName), reportDetails);
                 customerImportance.setCustomerImportanceDetails(reportDetails);
                 customerImportance.setCustomerImportanceQuestion(a.getQuestionLongDescription().replaceAll("the company", customerName).replaceAll("The company", customerName));
             }
@@ -137,14 +185,14 @@ public class ProcessReport {
                     .forEach(an -> answerValues.add(an.getAnswerValue()));
 
 //            reportItem.setReportScores(createReportScore(answerValues));
-//            reportItem.setReportDetails(createReportDetails(a));
+            reportItem.setReportDetails(createReportDetails(a, 4.0));
 
             reportItems.add(reportItem);
         });
         return reportItems;
     }
 
-    protected List<ReportItem> getReportItems(List<Question> questions, List<AnswerResponse> answers, String customerName) {
+    protected List<ReportItem> getReportItems(List<Question> questions, List<AnswerResponse> answers, String customerName, HashMap<Integer, Double> ebbScores) {
         List<ReportAnswers> answerList = new ArrayList<>();
 
         questions.forEach(a -> {
@@ -157,7 +205,7 @@ public class ProcessReport {
                 answerList.add(reportAnswers);
             }
         });
-        return calculateValues(answerList, customerName);
+        return calculateValues(answerList, customerName, ebbScores);
 
     }
 
@@ -236,10 +284,10 @@ public class ProcessReport {
     protected Score getPromoterScore(List<AnswerResponse> answers, Integer total) {
         Integer value = answers.size();
 
-        return new Score(value, getPercent(value, total, false));
+        return new Score(value, getPercent(value, total, false), getPercent(value * 3, total, false), "", "", "", "");
     }
 
-    protected List<ReportItem> calculateValues(List<ReportAnswers> answerList, String customerName) {
+    protected List<ReportItem> calculateValues(List<ReportAnswers> answerList, String customerName, HashMap<Integer, Double> ebbiScores) {
         List<ReportItem> reportItems = new ArrayList<>();
         answerList.forEach(a -> {
             ReportItem reportItem = new ReportItem(a.getQuestionId(), a.getQuestionName(), a.getQuestionShortDescription().replaceAll("the company", customerName).replaceAll("The company", customerName), a.getQuestionText(), a.getAnswers().size());
@@ -248,7 +296,7 @@ public class ProcessReport {
             a.getAnswers().stream()
                     .forEach(an -> answerValues.add(an.getAnswerValue()));
 
-            reportItem.setReportScores(createReportScore(answerValues));
+            reportItem.setReportScores(createReportScore(answerValues, ebbiScores.get(a.getQuestionId())));
             reportItem.setReportDetails(createReportDetails(a, 5.0));
 
             reportItems.add(reportItem);
@@ -264,9 +312,6 @@ public class ProcessReport {
 
         reportDetails.setFemale(createDetailsData(reportAnswers.getAnswers().stream()
                 .filter(a -> a.getGender().equals(2)).collect(Collectors.toList()), totalScore));
-
-//        List<AnswerResponse> filteredList =reportAnswers.getAnswers().stream()
-//                .filter(a -> (a.getAge().equals(1) || a.getAge().equals(2))).collect(Collectors.toList());
 
         reportDetails.setAgeLessThan45(createDetailsData(reportAnswers.getAnswers().stream()
                 .filter(a -> (a.getAge().equals(1) || a.getAge().equals(2))).collect(Collectors.toList()), totalScore));
@@ -310,30 +355,6 @@ public class ProcessReport {
         return reportDetails;
     }
 
-//    protected ReportDetailsData createPromoterDetailsData(List<AnswerResponse> answerList, Double totalScore) {
-//        ReportDetailsData reportDetails = new ReportDetailsData();
-//        Integer total = answerList.size();
-//
-//        reportDetails.setWell(getPercent(answerList.stream()
-//                .filter(a -> (a.getAnswerValue().equals(9) || a.getAnswerValue() .equals(10)))
-//                .collect(Collectors.toList()).size(), total, false));
-//
-//        reportDetails.setModerate(getPercent(answerList.stream()
-//                .filter(a -> (a.getAnswerValue().equals(7) || a.getAnswerValue().equals(8)))
-//                .collect(Collectors.toList()).size(), total, false));
-//
-//        reportDetails.setBadly(getPercent(answerList.stream()
-//                .filter(a -> (a.getAnswerValue().equals(1) || a.getAnswerValue().equals(2) || a.getAnswerValue().equals(3) || a.getAnswerValue().equals(4) || a.getAnswerValue().equals(5) || a.getAnswerValue().equals(6)))
-//                .collect(Collectors.toList()).size(), total, false));
-//
-//        String score = getScore(answerList);
-//
-//        reportDetails.setScore(score);
-//        reportDetails.setScorePercentage(getPercent(Double.valueOf(score), totalScore, false));
-//
-//        return reportDetails;
-//    }
-
     protected ReportDetailsData createDetailsData(List<AnswerResponse> answerList, Double totalScore) {
         ReportDetailsData reportDetails = new ReportDetailsData();
         Integer total = answerList.size();
@@ -354,22 +375,22 @@ public class ProcessReport {
         } else {
             reportDetails.setWell(getPercent(answerList.stream()
                     .filter(a -> a.getAnswerValue().equals(5) || a.getAnswerValue().equals(4))
-                    .collect(Collectors.toList()).size(), total, false));
+                    .collect(Collectors.toList()).size(), total , false));
 
             reportDetails.setModerate(getPercent(answerList.stream()
                     .filter(a -> a.getAnswerValue().equals(3))
-                    .collect(Collectors.toList()).size(), total, false));
+                    .collect(Collectors.toList()).size(), total , false));
 
             reportDetails.setBadly(getPercent(answerList.stream()
                     .filter(a -> a.getAnswerValue().equals(1) || a.getAnswerValue().equals(2))
-                    .collect(Collectors.toList()).size(), total, false));
+                    .collect(Collectors.toList()).size() , total , false));
 
         }
 
         String score = getScore(answerList);
 
         reportDetails.setScore(score);
-        reportDetails.setScorePercentage(getPercent(Double.valueOf(score), totalScore, false));
+        reportDetails.setScorePercentage(getPercent(Double.valueOf(score) -1, totalScore -1, false));
 
         return reportDetails;
     }
@@ -389,44 +410,68 @@ public class ProcessReport {
 
    }
 
-    protected ReportScores createReportScore(List<Integer> answerValues) {
+    protected ReportScores createReportScore(List<Integer> answerValues, Double ebbiScore) {
         ReportScores reportScore = new ReportScores();
 
         Integer totalAnswers = answerValues.size();
-        reportScore.setTotalAnswers(new Score(totalAnswers, "100"));
+        reportScore.setTotalAnswers(new Score(totalAnswers, "100", "", "", "", "", ""));
 
-        reportScore.setVeryWell(getScore(answerValues, 5, totalAnswers));
-        reportScore.setWell(getScore(answerValues, 4, totalAnswers));
-        reportScore.setModerate(getScore(answerValues, 3, totalAnswers));
-        reportScore.setBadly(getScore(answerValues, 2, totalAnswers));
-        reportScore.setVeryBadly(getScore(answerValues, 1, totalAnswers));
+        Double strokeOffset = 25.0;
 
-        reportScore.setDidNotAnswer(getScore(answerValues, 0, totalAnswers));
+        reportScore.setVeryWell(getScore(answerValues, 5, totalAnswers, strokeOffset));
+
+        reportScore.setDidNotAnswer(getScore(answerValues, 0, totalAnswers, strokeOffset));
+        strokeOffset = strokeOffset + Double.parseDouble(reportScore.getDidNotAnswer().getPercentage());
+
+        reportScore.setVeryBadly(getScore(answerValues, 1, totalAnswers, strokeOffset));
+        strokeOffset = strokeOffset + Double.parseDouble(reportScore.getVeryBadly().getPercentage());
+
+        reportScore.setBadly(getScore(answerValues, 2, totalAnswers, strokeOffset));
+        strokeOffset = strokeOffset + Double.parseDouble(reportScore.getBadly().getPercentage());
+
+        reportScore.setModerate(getScore(answerValues, 3, totalAnswers, strokeOffset));
+        strokeOffset = strokeOffset + Double.parseDouble(reportScore.getModerate().getPercentage());
+
+        reportScore.setWell(getScore(answerValues, 4, totalAnswers, strokeOffset));
+        strokeOffset = strokeOffset + Double.parseDouble(reportScore.getWell().getPercentage());
 
         Integer validAnswers = reportScore.getTotalAnswers().getValue() - reportScore.getDidNotAnswer().getValue();
 
-        reportScore.setValidAnswers(new Score(validAnswers, getPercent(validAnswers, totalAnswers, true)));
+        reportScore.setValidAnswers(new Score(validAnswers, getPercent(validAnswers, totalAnswers, true), "", "", "", "", ""));
 
         reportScore.setYourMedian(scoreFormatter.format(median.evaluate(answerValues.stream().mapToDouble(v -> v.doubleValue()).toArray())));
+        reportScore.setMedianPercentage(getPercent(Double.parseDouble(reportScore.getYourMedian()) - 1.03, 4.0, false));
         reportScore.setYourMean(scoreFormatter.format(StatUtils.mean(answerValues.stream().mapToDouble(v -> v.doubleValue()).toArray())));
+        reportScore.setMeanPercentage(getPercent(Double.parseDouble(reportScore.getYourMean()) - 1.13, 4.0, false));
+        reportScore.setStandardDeviation(scoreFormatter.format(Math.sqrt(StatUtils.variance(answerValues.stream().mapToDouble(v -> v.doubleValue()).toArray()))));
+
+        reportScore.setEbbiScore(ebbiScore.toString());
+        reportScore.setEbbiPercentage(getPercent(ebbiScore - 1.25, 4.0, false));
 
         return reportScore;
     }
 
 
-    protected Score getScore(List<Integer> answerValues, Integer score, Integer total) {
+    protected Score getScore(List<Integer> answerValues, Integer score, Integer total, Double dashOffset) {
         Integer value = answerValues.stream()
                 .filter(v -> v.equals(score))
                 .collect(Collectors.toList()).size();
 
-        return new Score(value, getPercent(value, total, true));
+
+        String strokeDashStart = getPercent(value, total, true);
+        String strokeDashEnd = String.valueOf(100.0 - Double.parseDouble(strokeDashStart));
+        if ( score != 5 ) {
+            dashOffset = dashOffset + Double.parseDouble(getPercent(value, total, true));
+        }
+
+        return new Score(value, getPercent(value, total, true), "", strokeDashStart, strokeDashEnd, dashOffset.toString(), strokeDashStart + " " + strokeDashEnd);
     }
 
     protected String getPercent(Double value, Double total, Boolean numberFormat) {
         if ( value < total) {
             double percent = (double)value/(double)total;
             if ( numberFormat) {
-                return scoreFormatter.format(percent);
+                return scoreFormatter.format(percent * 100);
             } else {
                 return percentFormatter.format(percent);
             }
@@ -439,9 +484,9 @@ public class ProcessReport {
     protected String getPercent(Integer value, Integer total, Boolean numberFormat) {
 
         if ( value < total) {
-            double percent = (double)value/(double)total;
+            double percent = ((double)value/(double)total);
             if ( numberFormat) {
-                return scoreFormatter.format(percent);
+                return scoreFormatter.format(percent * 100);
             } else {
                 return percentFormatter.format(percent);
             }

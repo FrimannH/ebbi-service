@@ -1,5 +1,6 @@
 package is.larsen.ebbi.Service;
 
+import is.larsen.ebbi.Model.requests.UpdateSurveyRequest;
 import is.larsen.ebbi.Model.responses.*;
 import is.larsen.ebbi.Model.requests.AnswerRequest;
 
@@ -15,7 +16,7 @@ public interface EbbiService {
 
     GetCustomersResponse deleteCustomer(Integer customerId);
 
-    UpdateSurveyResponse updateSurvey(Integer customerId, List<AnswerRequest> surveyResponses);
+    UpdateSurveyResponse updateSurvey(UpdateSurveyRequest request);
 
     GetReportResponse getReport(Integer customerId);
 

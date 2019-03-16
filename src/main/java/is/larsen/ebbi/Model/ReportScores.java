@@ -16,12 +16,13 @@ public class ReportScores {
     private Score validAnswers;
     private Score totalAnswers;
     private Score didNotAnswer;
-    private String mean;
-    private String median;
+    private String meanPercentage;
+    private String medianPercentage;
     private String standardDeviation;
     private String yourMean;
     private String yourMedian;
     private String ebbiScore;
     private String ebbiIndex;
+    private String ebbiPercentage;
 
 }

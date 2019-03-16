@@ -2,6 +2,7 @@ package is.larsen.ebbi.Dao.Impl;
 
 
 import is.larsen.ebbi.Dao.AnswersDao;
+import is.larsen.ebbi.Model.requests.UpdateSurveyRequest;
 import is.larsen.ebbi.Util.ProcessReport;
 import is.larsen.ebbi.Model.Question;
 import is.larsen.ebbi.Model.ReportAnswers;
@@ -23,6 +24,9 @@ import javafx.util.Pair;
 import java.lang.Object;
 import java.time.ZonedDateTime;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AnswersDaoImpl implements AnswersDao {
 
     @Autowired
@@ -32,15 +36,21 @@ public class AnswersDaoImpl implements AnswersDao {
     ProcessReport reportProcessor;
 
     @Override
-    public UpdateSurveyResponse addAnswers(Integer customerId, List<AnswerRequest> surveyResponses) {
+    public UpdateSurveyResponse addAnswers(UpdateSurveyRequest request) {
 
         UpdateSurveyResponse response = new UpdateSurveyResponse();
 
         Integer[] count = {0};
 
-        surveyResponses.forEach(r -> {
+        Integer customerId  = request.getCustomerId();
+        String startDate = request.getSurveyStartDate();
+        String endDate = request.getSurveyEndDate();
+        String surveyAgeFrom = request.getSurveyAgeFrom();
+        String surveyAgeTo = request.getSurveyAgeTo();
 
-            if ( isValidResponse(r)) {
+        request.getSurveyResponses().forEach(r -> {
+
+            if (isValidResponse(r)) {
                 String countryCode = r.getCountryCode().equals("") ? "0" : r.getCountryCode();
                 String region = r.getRegion().equals("") ? "0" : r.getRegion();
                 String switchSuppliers = r.getQuestion28().equals("") ? "0" : r.getQuestion28();
@@ -60,10 +70,21 @@ public class AnswersDaoImpl implements AnswersDao {
         });
 
         response.setRowsAffected(count[0]);
+        if (count[0] > 0) {
+            updateCustomerSurvey(startDate, endDate, customerId, surveyAgeFrom, surveyAgeTo);
+        }
+
         response.setStatusCode(0);
 
         return response;
 
+    }
+
+    protected Integer updateCustomerSurvey(String startDate, String endDate, Integer customerI, String surveyAgeFrom, String surveyAgeTo) {
+
+        String query = "Update Customers set survey_start_date =\"" + startDate + "\", survey_end_date =\"" + endDate + "\", age_gap_from =\"" + surveyAgeFrom + "\", age_gap_to =\"" + surveyAgeTo + "\"  Where customer_id = " + customerI + ";";
+
+        return jdbcTemplate.update(query);
     }
 
     protected Boolean isValidResponse(AnswerRequest request) {
@@ -82,12 +103,45 @@ public class AnswersDaoImpl implements AnswersDao {
 
     }
 
+    protected class CustomerRowMapper implements RowMapper {
+
+
+        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Map<String, String> surveyDateMap = new HashMap<>();
+            surveyDateMap.put("customerName", rs.getString("customer_name"));
+            surveyDateMap.put("customerDescription", rs.getString("customer_description"));
+            surveyDateMap.put("startDate", rs.getString("survey_start_date"));
+            surveyDateMap.put("endDate", rs.getString("survey_end_date"));
+            surveyDateMap.put("ageGapFrom", rs.getString("age_gap_from"));
+            surveyDateMap.put("ageGapTo", rs.getString("age_gap_to"));
+            return surveyDateMap;
+        }
+    }
+
     @Override
     public GetReportResponse getReport(Integer customerId) {
+        String customerName = "";
+        String customerDescription = "";
+        String startDate = "";
+        String endDate = "";
+        String ageGapFrom = "";
+        String ageGapTo = "";
 
-        List<AnswerResponse> answers = jdbcTemplate.query("Select Answers.question_id, Questions.question_type, Answers.customer_id, Answers.response, Answers.gender, Answers.age, Answers.income, Answers.education, Answers.promoter_score, Answers.switch_suppliers, Answers.country_code, Answers.region, Answers.time_stamp FROM Answers INNER JOIN Questions ON Answers.question_id=Questions.question_id where Answers.customer_id = " + customerId, new AnswersRowMapper());
+        List<AnswerResponse> answers = jdbcTemplate.query("Select Answers.question_id, Questions.question_type, Questions.question_score_formulation, Answers.customer_id, Answers.response, Answers.gender, Answers.age, Answers.income, Answers.education, Answers.promoter_score, Answers.switch_suppliers, Answers.country_code, Answers.region, Answers.time_stamp, Customers.survey_start_date, Customers.survey_end_date FROM Answers INNER JOIN Questions ON Answers.question_id=Questions.question_id INNER JOIN Customers ON Answers.customer_id=Customers.customer_id where Answers.customer_id = " + customerId, new AnswersRowMapper());
 
-        return reportProcessor.processReport(customerId, answers);
+        List<Map<String, String>> customerInfo = jdbcTemplate.query("Select customer_name, customer_description, survey_start_date, survey_end_date, age_gap_from, age_gap_to from Customers where customer_id = " + customerId +";", new CustomerRowMapper());
+
+        if ( customerInfo.size() > 0 ) {
+            Map<String, String> date = customerInfo.get(0);
+            customerName = date.get("customerName");
+            customerDescription = date.get("customerDescription");
+            startDate = date.get("startDate");
+            endDate = date.get("endDate");
+            ageGapFrom = date.get("ageGapFrom");
+            ageGapTo = date.get("ageGapTo");
+        }
+
+        return reportProcessor.processReport(customerId, answers, customerName, customerDescription, startDate, endDate, ageGapFrom, ageGapTo);
 
     }
 
@@ -271,6 +325,7 @@ public class AnswersDaoImpl implements AnswersDao {
             AnswerResponse answerResponse = new AnswerResponse();
             answerResponse.setQuestionId(rs.getInt("question_id"));
             answerResponse.setQuestionType(rs.getInt("question_type"));
+            answerResponse.setScoreFormulation(rs.getInt("question_score_formulation"));
             answerResponse.setAnswerValue(rs.getInt("response"));
             answerResponse.setGender(rs.getInt("gender"));
             answerResponse.setAge(rs.getInt("age"));

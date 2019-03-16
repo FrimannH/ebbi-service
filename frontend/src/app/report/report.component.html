@@ -14,70 +14,167 @@
 
 </div>
 <div class="report">
-    <div class="report_display" *ngIf="noDataDisplay">
-      <p class="report_no_data">
+  <div class="report_display" *ngIf="noDataDisplay">
+    <p class="report_no_data">
         No data
-      </p>
+    </p>
+  </div>
+  <div class="report_container" *ngIf="reportDataDisplay">
+    <div class="report_header">
+      {{getReportResponse.customerName}}<br>
+      {{getReportResponse.description}}
     </div>
-    <div class="report_container" *ngIf="reportDataDisplay">
-      <div class="report_header">
-        {{getReportResponse.customerName}}<br>
-        {{getReportResponse.description}}
+    <div class="report_item_devider">
+      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
+    <div class="method_container">
+      <div class="method">
+         <p>
+           METHOD
+         </p>
       </div>
-      <div class="report_data">
-        <div *ngFor='let reportItem of getReportResponse.reportItems' class="report_item_container">
-          <div class="report_item">
+      <div class="method_text">
+        <P>
+          This survey is designed to measure the consumer’s perception towards {{getReportResponse.customerName}} brand. The surveys questions asked are based on elements that identify energy specific brand equity constructs."&" The EBBI (Energy Brand Benchmark Measurement) was created through rigorous academic process, that has been adapted to the energy space. The result for each element is benchmarked to the total mean of nominees in the CHARGE Awards 2016
+        </P>
+      </div>
+      <div class="method_survey_date">
+        <p>
+          The survey was conducted among {{getReportResponse.customerName}} customers and took place from {{getReportResponse.reportStartDate}} to {{getReportResponse.reportEndDate}}. Respondents were of both sexes aged {{getReportResponse.ageRangeFrom}} - {{getReportResponse.ageRaneTo}} years. Reminder for participation was sent out twice to those who had not yet answered. Respondents were {{getReportResponse.respondentCount}} in total.
+        </p>
+      </div>
+      <div class="method_expanation_container">
+        <!--<div class="method_box">-->
+
+        <!--</div>-->
+        <div class="method_explanation">
+          <div class="method_explanation_header">
+            <p>
+              Brief explanations of statistical terms in the report:
+            </p>
+          </div>
+          <div class="method_explanation_mean">
+            <p>
+             <b>Mean</b> is the average value of a set of numbers. It tells you where the central tendency of the answers to a particular question lies. The mean is calculated by simply adding the numeric answers for all participants and dividing them with the total number of participants.
+            </p>
+          </div>
+          <div class="method_explanation_standart_deviation">
+            <p>
+              <b>Standard deviation</b> tells you how much the answers to a particular question, on a continuous scale, are spread around its mean. So if the standard deviation to a particular question is low it means that there are little differences in the attitudes of respondents, if however the standard deviation is high it means the differences in the respondent’s attitude is greater.
+            </p>
+          </div>
+          <div class="method_explanation_chi_square">
+            <p>
+              <b>Chi-square test</b> is a significance test used to determine significant differences in background groups on a non-consecutive response scales.
+            </p>
+          </div>
+          <div class="method_explanation_anova">
+            <p>
+              <b>ANOVA</b> stands for Analysis of Variance and assesses whether there are significant differences in the answers mean to a question on a continuous scale.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="report_item_devider">
+      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
+    <div class="ebbi_score_formulation_container">
+      <div class="ebbi_score_formulation_header">
+        <p>
+          EBBI SCORE FORMULATION
+        </p>
+      </div>
+      <div class="ebbi_score_formulation">
+        <div class="ebbi_score_formulation_cirlce">
+          <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">
+            <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FEF9E7" stroke-width="6"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#E67E22" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.veryWell.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.veryWell.strokeOffset"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#85929E" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.didNotAnswer.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.didNotAnswer.strokeOffset"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FDEBD0" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.veryBadly.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.veryBadly.strokeOffset"></circle>
+          </svg>
+
+        </div>
+        <div class="ebbi_score_formulation_bars">
+
+        </div>
+      </div>
+    </div>
+    <div class="report_item_devider">
+      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
+    <div *ngFor='let reportItem of getReportResponse.reportItems'  class="report_items">
+        <div class="report_item">
           <div class="report_score">
             <div class="report_score_details">
               <div class="report_score_pie_container">
-
+                <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">
+                  <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                  <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FEF9E7" stroke-width="6"></circle>
+                  <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#E67E22" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.veryWell.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.veryWell.strokeOffset"></circle>
+                  <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#85929E" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.didNotAnswer.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.didNotAnswer.strokeOffset"></circle>
+                  <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FDEBD0" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.veryBadly.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.veryBadly.strokeOffset"></circle>
+                  <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FAD7A0" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.badly.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.badly.strokeOffset"></circle>
+                  <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#F8C471" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.moderate.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.moderate.strokeOffset"></circle>
+                  <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#F39C12" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.well.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.well.strokeOffset"></circle>
+                </svg>
               </div>
               <div class="report_score_breakdown"></div>
               <div class="report_summary">
                 <div>
+                  <div class="report_score_filler"></div>
                   <div class="report_score_label"></div>
                   <div class="report_score_value">Count</div>
                   <div class="report_score_percentage">%</div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="score">
+                  <div class="report_score_filler report_score_filler_very_well"></div>
                   <div class="report_score_label">Very Well</div>
                   <div class="report_score_value">{{reportItem.reportScores.veryWell.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.veryWell.percentage}}</div>
                 </div>
-                <div>
+                <div class="score">
+                  <div class="report_score_filler report_score_filler_well"></div>
                   <div class="report_score_label">Well</div>
                   <div class="report_score_value">{{reportItem.reportScores.well.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.well.percentage}}</div>
                 </div>
-                 <div>
+                 <div class="score">
+                  <div class="report_score_filler report_score_filler_moderate"></div>
                   <div class="report_score_label">Moderate</div>
                   <div class="report_score_value">{{reportItem.reportScores.moderate.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.moderate.percentage}}</div>
                 </div>
-                <div>
+                <div class="score">
+                  <div class="report_score_filler report_score_filler_badly"></div>
                   <div class="report_score_label">Badly</div>
                   <div class="report_score_value">{{reportItem.reportScores.badly.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.badly.percentage}}</div>
                 </div>
-                <div>
+                <div class="score">
+                  <div class="report_score_filler report_score_filler_very_badly"></div>
                   <div class="report_score_label">Very Badly</div>
                   <div class="report_score_value">{{reportItem.reportScores.veryBadly.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.veryBadly.percentage}}</div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="score">
+                  <div class="report_score_filler"></div>
                   <div class="report_score_label">Valid answers</div>
                   <div class="report_score_value">{{reportItem.reportScores.validAnswers.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.validAnswers.percentage}}</div>
                 </div>
                 <hr class="report_detail_line">
-                <div>
+                <div class="score">
+                  <div class="report_score_filler report_score_filler_did_not_answer"></div>
                   <div class="report_score_label">Did not answer</div>
                   <div class="report_score_value">{{reportItem.reportScores.didNotAnswer.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.didNotAnswer.percentage}}</div>
                 </div>
-                <div>
+                <div class="score">
+                  <div class="report_score_filler"></div>
                   <div class="report_score_label">Total answers</div>
                   <div class="report_score_value">{{reportItem.reportScores.totalAnswers.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.totalAnswers.percentage}}</div>
@@ -98,17 +195,66 @@
                 <div>
                   <div class="report_description_label">Mean</div>
                   <div class="report_description_value">{{reportItem.reportScores.yourMean}}</div>
+                  <div class="report_description_dot">
+                    <svg class="svg_dot" height="16" width="16">
+                      <circle cx="7" cy="7" r="5" stroke="#FBB917" stroke-width="3" fill="#FBB917" />
+                    </svg>
+                  </div>
+                  <div class="report_description_text">Your mean</div>
                 </div>
                 <div>
                   <div class="report_description_label">Median</div>
                   <div class="report_description_value">{{reportItem.reportScores.yourMedian}}</div>
+                  <div class="report_description_dot">
+                    <svg class="svg_dot" height="16" width="16">
+                      <circle cx="7" cy="7" r="5" stroke="#B87333" stroke-width="3" fill="#B87333" />
+                    </svg>
+                  </div>
+                  <div class="report_description_text">Your median</div>
+                </div>
+                <div>
+                  <div class="report_description_label">Standard Deviation</div>
+                  <div class="report_description_value">{{reportItem.reportScores.standardDeviation}}</div>
+                </div>
+                <div>
+                  <div class="report_description_label">EBBI score</div>
+                  <div class="report_description_value">{{reportItem.reportScores.ebbiScore}}</div>
+                  <div class="report_description_dot">
+                    <svg class="svg_dot" height="16" width="16">
+                      <circle cx="7" cy="7" r="5" stroke="#151B54" stroke-width="3" fill="#151B54" />
+                    </svg>
+                  </div>
+                  <div class="report_description_text">EBBI index</div>
+                </div>
+                <div class="report_description_score">
+                  <div class="chart_line">
+                    <div class="tick"></div>
+                    <div class="tick"></div>
+                    <div class="tick"></div>
+                  </div>
+                  <div class="report_score_numbers">
+                    <div class="report_score_number report_score_one">1</div>
+                    <div class="report_score_number report_score_two">2</div>
+                    <div class="report_score_number report_score_three">3</div>
+                    <div class="report_score_number report_score_four">4</div>
+                    <div class="report_score_number report_score_five">5</div>
+                  </div>
+                  <svg class="svg_dot_median" style.left="{{reportItem.reportScores.medianPercentage}}" height="16" width="16">
+                    <circle cx="7" cy="7" r="5" stroke="#B87333" stroke-width="3" fill="#B87333" transparency="1.0" />
+                  </svg>
+                  <svg class="svg_dot_mean" style.left="{{reportItem.reportScores.meanPercentage}}" height="16" width="16">
+                    <circle cx="7" cy="7" r="5" stroke="#FBB917" stroke-width="3" fill="#FBB917" />
+                  </svg>
+                  <svg class="svg_dot_ebbi" style.left="{{reportItem.reportScores.ebbiPercentage}}" height="16" width="16">
+                    <circle cx="7" cy="7" r="5" stroke="#151B54" stroke-width="3" fill="#151B54" />
+                  </svg>
                 </div>
               </div>
-            </div>
-            <div class="report_item_image">
-              <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
-            </div>
-            <div>
+          </div>
+          <div class="report_item_image">
+            <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+          </div>
+          <div class="question_details">
               <div class="question_details_header">
                 <p class="question_paragraph">Detailed Analysis: {{reportItem.questionShortDescription}}</p>
               </div>
@@ -118,7 +264,20 @@
                   <div class="report_detail_element">Well</div>
                   <div class="report_detail_element">Moderate</div>
                   <div class="report_detail_element">Badly</div>
-                  <div class="report_detail_score"></div>
+                  <div class="report_detail_score">
+                    <div class="report_score_numbers">
+                      <div class="report_score_number report_score_one">1</div>
+                      <div class="report_score_number report_score_two">2</div>
+                      <div class="report_score_number report_score_three">3</div>
+                      <div class="report_score_number report_score_four">4</div>
+                      <div class="report_score_number report_score_five">5</div>
+                    </div>
+                    <div class="chart_line">
+                      <div class="tick"></div>
+                      <div class="tick"></div>
+                      <div class="tick"></div>
+                    </div>
+                  </div>
                 </div>
                 <hr class="report_detail_line">
                 <div class="report_details">
@@ -295,11 +454,11 @@
               </div>
             </div>
           </div>  <!--report item-->
-          <div class="report_item_devider">
-            <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
-          </div>
-      </div> <!--report item contaier-->
-    </div>  <!--report data-->
+        </div> <!--report item-->
+      <div class="report_item_devider">
+        <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+      </div>
+    </div>  <!-- report items-->
     <div>
       <div class="report_promoter_container">
         <div class="report_promoter_item">
@@ -437,17 +596,17 @@
               <div>
                <div class="promoter_detail_label">Detractors (0-6)</div>
                 <div class="report_detail_element">{{getReportResponse.promoterScore.detractors.value}}</div>
-                <div class="report_detail_element">{{getReportResponse.promoterScore.detractors.percentage}}</div>
+                <div class="report_detail_element">({{getReportResponse.promoterScore.detractors.percentage}})</div>
               </div>
               <div>
                 <div class="promoter_detail_label">Passives (7-8)</div>
                 <div class="report_detail_element">{{getReportResponse.promoterScore.passives.value}}</div>
-                <div class="report_detail_element">{{getReportResponse.promoterScore.passives.percentage}}</div>
+                <div class="report_detail_element">({{getReportResponse.promoterScore.passives.percentage}})</div>
               </div>
               <div>
                 <div class="promoter_detail_label">Promoters (9-10)</div>
                 <div class="report_detail_element">{{getReportResponse.promoterScore.promoters.value}}</div>
-                <div class="report_detail_element">{{getReportResponse.promoterScore.promoters.percentage}}</div>
+                <div class="report_detail_element">({{getReportResponse.promoterScore.promoters.percentage}})</div>
               </div>
             </div>
           </div> <!--report promoter details-->
@@ -462,77 +621,77 @@
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score0.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score0.percentage">
+                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score0.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score1.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar1" [style.height]="getReportResponse.promoterScore.score1.percentage">
+                    <div class="promoter_bar promoter_bar1" [style.height]="getReportResponse.promoterScore.score1.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score2.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score2.percentage">
+                    <div class="promoter_bar promoter_bar2" [style.height]="getReportResponse.promoterScore.score2.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score3.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score3.percentage">
+                    <div class="promoter_bar promoter_bar3" [style.height]="getReportResponse.promoterScore.score3.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score4.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score5.percentage">
+                    <div class="promoter_bar promoter_bar4" [style.height]="getReportResponse.promoterScore.score5.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score5.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score5.percentage">
+                    <div class="promoter_bar promoter_bar5" [style.height]="getReportResponse.promoterScore.score5.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score6.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score6.percentage">
+                    <div class="promoter_bar promoter_bar6" [style.height]="getReportResponse.promoterScore.score6.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score7.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score7.percentage">
+                    <div class="promoter_bar promoter_bar7" [style.height]="getReportResponse.promoterScore.score7.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score8.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score8.percentage">
+                    <div class="promoter_bar promoter_bar8" [style.height]="getReportResponse.promoterScore.score8.percentageAdjusted">
                     </div>
                   </td>
                   <td class="promoter_bar_column">
                     <div class="promoter_bar_percentage">
                       {{getReportResponse.promoterScore.score9.percentage}}
                     </div>
-                    <div class="promoter_bar promoter_bar0" [style.height]="getReportResponse.promoterScore.score9.percentage">
+                    <div class="promoter_bar promoter_bar9" [style.height]="getReportResponse.promoterScore.score9.percentageAdjusted">
                     </div>
                   </td>
                 </tr>
               </table>
             </div>
           </div>
-        </div>
+        </div>  <!-- report_promoter_item -->
       </div> <!--report promoter container-->
       <div class="report_item_devider">
         <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
@@ -559,20 +718,43 @@
       </div>
       <div class="importance_filler"></div>
     </div>
-      <div class="report_item_devider">
-        <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    <div class="report_item_devider">
+      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
+    <div class="question_details_container">
+      <div class="question_details_header">
+        <p class="question_paragraph">Detailed Analysis: {{getReportResponse.customerImportance.customerImportanceQuestion}}</p>
       </div>
-      <div class="question_details_container">
-        <div class="question_details_header">
-          <p class="question_paragraph">Detailed Analysis: {{getReportResponse.customerImportance.customerImportanceQuestion}}</p>
-        </div>
-          <div class="question_details">
-            <div class="report_detail_header">
-              <div class="report_detail_label"></div>
+      <div class="question_details">
+        <div class="report_detail_header">
+          <div class="report_detail_label"></div>
               <div class="report_detail_element">Well</div>
               <div class="report_detail_element">Moderate</div>
               <div class="report_detail_element">Badly</div>
-              <div class="report_detail_score"></div>
+              <div class="report_detail_score">
+                <div class="report_score_numbers">
+                  <div class="report_score_number recomment_score_one">1</div>
+                  <div class="report_score_number recomment_score_two">2</div>
+                  <div class="report_score_number recomment_score_three">3</div>
+                  <div class="report_score_number recomment_score_four">4</div>
+                  <div class="report_score_number recomment_score_five">5</div>
+                  <div class="report_score_number recomment_score_six">6</div>
+                  <div class="report_score_number recomment_score_seven">7</div>
+                  <div class="report_score_number recomment_score_eight">8</div>
+                  <div class="report_score_number recomment_score_nine">9</div>
+                  <div class="report_score_number recomment_score_ten">10</div>
+                </div>
+                <div class="chart_line">
+                  <div class="tick_recomment"></div>
+                  <div class="tick_recomment"></div>
+                  <div class="tick_recomment"></div>
+                  <div class="tick_recomment"></div>
+                  <div class="tick_recomment"></div>
+                  <div class="tick_recomment"></div>
+                  <div class="tick_recomment"></div>
+                  <div class="tick_recomment"></div>
+                </div>
+              </div>
             </div>
             <hr class="report_detail_line">
             <div class="report_details">
@@ -747,8 +929,207 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
+    </div>
+    <div class="report_item_devider">
+      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
+    <div *ngFor='let importanceItem of getReportResponse.customerImportanceItems' class="importance_details_analysis_loop">
+      <div  class="importance_details_analysis_container">
+        <div class="question_importance_header">
+          <p class="question_paragraph">Detailed Analysis: {{importanceItem.questionName}}</p>
+       </div>
+        <div class="question_details">
+        <div class="report_detail_header">
+          <div class="importance_detail_label"></div>
+          <div class="report_detail_element">Imortant</div>
+          <div class="report_detail_element">Neither nor</div>
+          <div class="report_detail_element">Unimportant</div>
+          <div class="report_detail_score"></div>
+        </div>
+        <hr class="report_detail_line">
+        <div class="report_details">
+          <div class="report_detail_label">Male:</div>
+          <div class="report_detail_element">{{importanceItem.reportDetails.male.well}}</div>
+          <div class="report_detail_element">{{importanceItem.reportDetails.male.moderate}}</div>
+          <div class="report_detail_element">{{importanceItem.reportDetails.male.badly}}</div>
+          <div class="report_detail_score">
+            <div class="detail_analysis_score detail_beckground_male" [style.width]="importanceItem.reportDetails.male.scorePercentage">
+              <span>{{importanceItem.reportDetails.male.score}}</span>
+            </div>
+          </div>
+          </div>
+          <div class="report_details">
+            <div class="report_detail_label">Female:</div>
+            <div class="report_detail_element">{{importanceItem.reportDetails.female.well}}</div>
+            <div class="report_detail_element">{{importanceItem.reportDetails.female.moderate}}</div>
+            <div class="report_detail_element">{{importanceItem.reportDetails.female.badly}}</div>
+            <div class="report_detail_score">
+              <div class="detail_analysis_score detail_beckground_female" [style.width]="importanceItem.reportDetails.female.scorePercentage">
+                <span>{{importanceItem.reportDetails.female.score}}</span>
+              </div>
+            </div>
+            <hr class="report_detail_line">
+            <div class="report_details">
+              <div class="report_detail_label">45 year:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.ageLessThan45.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.ageLessThan45.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.ageLessThan45.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_45" [style.width]="importanceItem.reportDetails.ageLessThan45.scorePercentage">
+                  <span>{{importanceItem.reportDetails.ageLessThan45.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">46-55 year:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.age46to55.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.age46to55.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.age46to55.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_46" [style.width]="importanceItem.reportDetails.age46to55.scorePercentage">
+                  <span>{{importanceItem.reportDetails.age46to55.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">56-65 year:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.age56to65.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.age56to65.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.age56to65.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_56" [style.width]="importanceItem.reportDetails.age56to65.scorePercentage">
+                  <span>{{importanceItem.reportDetails.age56to65.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">66>:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.ageOver66.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.ageOver66.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.ageOver66.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_66" [style.width]="importanceItem.reportDetails.ageOver66.scorePercentage">
+                  <span>{{importanceItem.reportDetails.ageOver66.score}}</span>
+                </div>
+              </div>
+            </div>
+            <hr class="report_detail_line">
+            <div class="report_details">
+              <div class="report_detail_label">Less than kr 400k>:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.income1.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.income1.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.income1.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_l400k" [style.width]="importanceItem.reportDetails.income1.scorePercentage">
+                  <span>{{importanceItem.reportDetails.income1.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">More than kr 400k:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.income2.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.income2.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.income2.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_g400k" [style.width]="importanceItem.reportDetails.income2.scorePercentage">
+                  <span>{{importanceItem.reportDetails.income2.score}}</span>
+                </div>
+              </div>
+            </div>
+            <hr class="report_detail_line">
+            <div class="report_details">
+              <div class="report_detail_label">No university Degree:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.education1.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.education1.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.education1.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_no_degree" [style.width]="importanceItem.reportDetails.education1.scorePercentage">
+                  <span>{{importanceItem.reportDetails.education1.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">University degree:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.education2.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.education2.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.education2.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_degree" [style.width]="importanceItem.reportDetails.education2.scorePercentage">
+                  <span>{{importanceItem.reportDetails.education2.score}}</span>
+                </div>
+              </div>
+            </div>
+            <hr class="report_detail_line">
+            <div class="report_details">
+              <div class="report_detail_label">Detractors:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.detractors.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.detractors.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.detractors.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_detractor" [style.width]="importanceItem.reportDetails.detractors.scorePercentage">
+                  <span>{{importanceItem.reportDetails.detractors.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">Passives:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.passives.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.passives.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.passives.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_passive" [style.width]="importanceItem.reportDetails.passives.scorePercentage">
+                  <span>{{importanceItem.reportDetails.passives.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">Promoters:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.promoters.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.promoters.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.promoters.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_promoter" [style.width]="importanceItem.reportDetails.promoters.scorePercentage">
+                  <span>{{importanceItem.reportDetails.promoters.score}}</span>
+                </div>
+              </div>
+            </div>
+            <hr class="report_detail_line">
+            <p>Have you switched energy suppliers (for other reason than moving)</p>
+            <hr class="report_detail_line">
+            <div class="report_details">
+              <div class="report_detail_label">No:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.switchSupplierNo.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.switchSupplierNo.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.switchSupplierNo.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_no" [style.width]="importanceItem.reportDetails.switchSupplierNo.scorePercentage">
+                  <span>{{importanceItem.reportDetails.switchSupplierNo.score}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="report_details">
+              <div class="report_detail_label">Yes:</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.switchSupplierYes.well}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.switchSupplierYes.moderate}}</div>
+              <div class="report_detail_element">{{importanceItem.reportDetails.switchSupplierYes.badly}}</div>
+              <div class="report_detail_score">
+                <div class="detail_analysis_score detail_beckground_yes" [style.width]="importanceItem.reportDetails.switchSupplierYes.scorePercentage">
+                  <span>{{importanceItem.reportDetails.switchSupplierYes.score}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>  <!-- importance_details_analysis_container-->
+      <div class="report_item_devider">
+        <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+      </div>
+    </div>
+    <div class="report_summary_container"></div>
+      <div class="report_summary">
+        <p class="question_paragraph">Summary</p>
+      </div>
     <div class="report_bottom"></div>
   </div> <!--report container-->
 </div>  <!--report-->

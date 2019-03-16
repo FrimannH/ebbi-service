@@ -15,4 +15,5 @@ public class Question {
     private String questionLongDescription;
     private String questionText;
     private String questionType;
+    private String questionScoreFormulation;
 }

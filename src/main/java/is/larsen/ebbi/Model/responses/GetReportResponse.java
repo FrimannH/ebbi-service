@@ -18,4 +18,12 @@ public class GetReportResponse extends BaseResponse {
     private List<ReportItem> reportItems;
     private CustomerImportance customerImportance;
     private List<ReportItem> customerImportanceItems;
+    private String differentiation;
+    private String segmentation;
+    private String imageAndPerception;
+    private String reportStartDate;
+    private String reportEndDate;
+    private String respondentCount;
+    private String ageRangeFrom;
+    private String ageRaneTo;
 }

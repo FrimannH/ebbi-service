@@ -48,7 +48,7 @@ public class EbbiServiceController {
     //Update answers db with a survey results for one customer
     @RequestMapping(method =  RequestMethod.POST, value = "/update/survey" )
     public UpdateSurveyResponse updateSurvey(@RequestBody  UpdateSurveyRequest request) {
-        return ebbiService.updateSurvey(request.getCustomerId(), request.getSurveyResponses());
+        return ebbiService.updateSurvey(request);
     }
 
     //Get report

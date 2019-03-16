@@ -9,4 +9,9 @@ import lombok.Data;
 public class Score {
     private Integer value;
     private String percentage;
+    private String percentageAdjusted;
+    private String strokeDashStart;
+    private String strokeDashEnd;
+    private String strokeOffset;
+    private String strokeDashArray;
 }

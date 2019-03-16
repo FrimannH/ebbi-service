@@ -3,8 +3,10 @@
   <div class="admin_customers">
     <div class="customer_edit">
       <p class="admin_header"> Add Customers</p>
-      <label class="admin_label">Customer name:</label> <input [(value)]="customerName" (input)='customerName = $event.target.value' type="text" class="admin_input" name="customerName"><br>
-      <label class="admin_label">Customer description:</label> <input [(value)]="customerDescription" (input)='customerDescription = $event.target.value' type="text" class="admin_input" name="customerDescription">
+      <label class="admin_label">Customer name:</label>
+      <input [(value)]="customerName" (input)='customerName = $event.target.value' type="text" class="admin_input" name="customerName"><br>
+      <label class="admin_label">Customer description:</label>
+      <input [(value)]="customerDescription" (input)='customerDescription = $event.target.value' type="text" class="admin_input" name="customerDescription">
       <button class="customer_button" (click)="addCustomer()">Add</button>
     </div>
     <div class="customer_edit">
@@ -22,14 +24,43 @@
     <div class="admin_report">
       <div class="customer_edit">
         <p class="admin_header">  Upload survey</p>
-        <select class="customer_list" name="customer" (change)="customerId2 = $event.target.value">
-          <option value=-2>-- Select Customer --</option>
-          <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
-        </select>
-        <input id="report_input_file" (input)="uploadReportFile($event)" type="file" class="input_file admin_input" name="inputFilePathName">
-        <label for="report_input_file" class="input_file_label admin_label">{{inputFileLabelValue}}</label>
-        <div class="update_survey" *ngIf="updatedSurvey">
-          <p>Survey updated, affected rows {{updatedSurveyCount}}</p>
+        <div class="survey_update_container">
+          <div class="update_survey_customer">
+            <select class="customer_list update_survey" name="customer" (change)="customerId2 = $event.target.value">
+              <option value=-2>-- Select Customer --</option>
+              <option *ngFor='let customer of customers' value={{customer.customerId}}>{{customer.customerName}}</option>
+            </select>
+            <input id="report_input_file" (input)="uploadReportFile($event)" type="file" class="input_file admin_input" name="inputFilePathName">
+            <label for="report_input_file" class="input_file_label admin_label">{{inputFileLabelValue}}</label>
+            <div class="update_survey" *ngIf="updatedSurvey">
+              <p>Survey updated, affected rows {{updatedSurveyCount}}</p>
+            </div>
+          </div>
+          <div class="survey_date">
+            <div class="survey_start_date_container">
+              <div class="update_survey_start_date">
+                <label class="admin_label">Survey start date (MM-DD-YYY):</label>
+                <input [(value)]="surveyStartDate" (input)='surveyStartDate = $event.target.value' type="text" class="admin_input" name="surveyStartDate">
+              </div>
+            </div>
+            <div class="survey_end_date_container">
+              <div class="update_survey_end_date">
+                <label class="admin_label">Survey end date (MM-DD-YYY):</label>
+                <input [(value)]="surveyEndDate" (input)='surveyEndDate = $event.target.value' type="text" class="admin_input" name="surveyEndDate">
+              </div>
+            </div>
+          </div>
+          <div class="survey_age_range_container">
+            <p class="age_range">Survey age range</p>
+            <div class="survey_age_from">
+              <label class="admin_label">From:</label>
+              <input [(value)]="surveyAgeFrom" (input)='surveyAgeFrom = $event.target.value' type="text" class="admin_input" name="surveyAgeFrom">
+            </div>
+            <div class="survey_age_to">
+              <label class="admin_label">To:</label>
+              <input [(value)]="surveyAgeTo" (input)='surveyAgeTo = $event.target.value' type="text" class="admin_input" name="surveyAgeTo">
+            </div>
+          </div>
         </div>
       </div>
       <div class="customer_edit">

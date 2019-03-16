@@ -11,9 +11,9 @@ spring.datasource.tomcat.max-idle: 20
 spring.datasource.tomcat.min-idle: 15
 
 spring.datasource.driver-class-name: com.mysql.jdbc.Driver
-spring.datasource.url: jdbc:mysql://localhost:3306/Ebbi
-spring.datasource.username: ebbi
-spring.datasource.password: EbbiService1
+#spring.datasource.url: jdbc:mysql://localhost:3306/Ebbi
+#spring.datasource.username: ebbi
+#spring.datasource.password: EbbiService1
 
 
 
@@ -42,14 +42,30 @@ liquibase:
   enabled: true
   contexts: test
 
+
+---
+
+spring:
+  profiles: local
+
+spring.datasource.url: jdbc:mysql://localhost:3306/Ebbi
+spring.datasource.username: ebbi
+spring.datasource.password: EbbiService1
+
 ---
 
 spring:
   profiles: ebbi-prod-preprod1
 
+spring.datasource.url: jdbc:mysql://localhost:3306/Ebbi
+spring.datasource.username: ebbi
+spring.datasource.password: EbbiService1
 
 ---
 
 spring:
   profiles: ebbi-prod-prod1
 
+spring.datasource.url: jdbc:mysql://localhost:3306/Ebbi
+spring.datasource.username: ebbi
+spring.datasource.password: EbbiService1

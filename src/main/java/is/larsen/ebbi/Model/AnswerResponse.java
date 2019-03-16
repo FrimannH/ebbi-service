@@ -11,6 +11,7 @@ public class AnswerResponse {
 
     private Integer questionId;
     private Integer questionType;
+    private Integer scoreFormulation;
     private Integer answerValue;
     private Integer gender;
     private Integer age;

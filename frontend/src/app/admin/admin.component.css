@@ -41,7 +41,6 @@
   padding: 10px 25px;
   text-align: center;
   text-decoration: none;
-  /*display: inline-block;*/
   font-size: 14px;
   margin: 4px 2px;
   cursor: pointer;
@@ -59,7 +58,11 @@
   margin: 4px 2px;
   cursor: pointer;
   display: block;
-  max-width: 20%;
+  width: 80%;
+}
+
+.survey_age_range_container {
+  display: inline-block;
 }
 
 .customer_list {
@@ -74,4 +77,36 @@
 
 .admin_header {
   font-weight: 700;
+}
+
+.survey_update_container {
+  width: 100%;
+}
+
+
+.update_survey_customer {
+  display: inline-block;
+  width: 25%;
+}
+
+.update_survey_start_date {
+  display: inline-block;
+}
+
+.age_range {
+
+}
+
+.survey_age_range_container {
+  font-weight: 500;
+  width: 30%;
+}
+
+.update_survey {
+  min-width: 60%;
+}
+
+.survey_date {
+  display: inline-block;
+  width: 30%;
 }
