@@ -12,6 +12,7 @@ import java.util.List;
 public class ReportAnswers {
     private Integer questionId;
     private String questionName;
+    private String questionOverviewName;
     private String questionShortDescription;
     private String questionText;
     private List<AnswerResponse> answers;

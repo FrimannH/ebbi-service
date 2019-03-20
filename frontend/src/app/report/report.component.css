@@ -85,16 +85,60 @@
 .ebbi_score_formulation_container {
   padding-left: 7%;
   padding-right: 7%;
+  padding-top: 2%;
 }
 
 .ebbi_score_formulation_cirlce {
   width: 40%;
-  padding: 30px
+  padding: 30px;
+  min-height: 400px;
+  display: inline-block;
 }
 
-.ebbi_score_formulation_bars {
+.ebbi_score_formulation_bars_contaier {
   width: 60%;
-  padding: 10px
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 7%;
+  position: relative;
+}
+
+.formulation_bar {
+  height: 100%;
+}
+
+.rebbi_score_formulation_bar {
+  margin-top: 40px;
+}
+
+.ebbi_score_formulation_text {
+  font-size: 3px;
+  text-align: center;
+}
+
+.score_formulation_differentiation {
+  background-color: #F39C12;
+  height: 20px;
+  display: inline-block;
+}
+
+.score_formulation_value {
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 5px;
+}
+
+.score_formulation_segmentation {
+  background-color: #F8C471;
+  height: 20px;
+  display: inline-block;
+}
+
+.score_formulation_image {
+  background-color: #FAD7A0;
+  height: 20px;
+  display: inline-block;
 }
 
 .ebbi_score_formulation_header {
@@ -102,9 +146,174 @@
   border-bottom: solid;
   border-top: solid;
   border-width: thin;
-  font-size: 20px;
+  font-size: 30px;
   padding-top: 10px;
   margin-top: 10px;
+}
+
+.construct_container {
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 2%;
+}
+
+.construct_header {
+  font-weight: 400;
+  border-bottom: solid;
+  border-top: solid;
+  border-width: thin;
+  font-size: 30px;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.construct_values_container {
+  padding-top: 30px;
+}
+
+
+.construct_your_mean {
+  display: inline-block;
+}
+
+.construct_your_mean_color {
+  display: inline-block;
+  background-color: #FAD7A0;
+  width: 40px;
+  height: 15px;
+  vertical-align: middle;
+}
+
+.construct_ebbi_score {
+  display: inline-block;
+}
+
+.construct_ebbi_color {
+  display: inline-block;
+  background-color: #F39C12;
+  width: 40px;
+  height: 15px;
+  vertical-align: middle;
+}
+
+.construct_label {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.construct_overall_values {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.construct_filler {
+  width: 15%;
+  display: inline-block;
+}
+
+.construct_numbers_container {;
+  text-align: left;
+  padding-bottom: 5px;
+}
+
+.construct_scale {
+
+}
+
+.construct_score_number {
+  display: inline-block;
+}
+
+.construct_score_zero {
+  text-align: left;
+  width: 19.5%;;
+}
+
+.construct_score_one {
+  text-align: left;
+  width: 20%;;
+}
+
+.construct_score_two {
+  text-align: left;
+  width: 20%;
+}
+
+.construct_score_three {
+  text-align: left;
+  width: 20%;
+}
+
+.construct_score_four {
+  text-align: left;
+  width: 11.8%;
+}
+
+.construct_score_five {
+  text-align: right;
+  width: 8.6%;
+}
+
+.construct_tick {
+  border-left: 2px solid black;
+  height: 6px;
+  position: absolute;
+}
+.construct_tick:nth-child(1) {
+  left: 20%;
+}
+.construct_tick:nth-child(2) {
+  left: 40%;
+}
+.construct_tick:nth-child(3) {
+  left: 60%;
+}
+.construct_tick:nth-child(4) {
+  left: 80%;
+}
+
+.construct_scale_container {
+  display: inline-block;
+  width: 70%;
+}
+
+.construct_numbers {
+  width: 100%;
+}
+
+.construct_values {
+  display: inline-block;
+  width: 50%;
+}
+
+.construct_value {
+  padding-bottom: 5px;
+}
+
+.construct_question {
+  display: inline-block;
+  width: 30%;
+  vertical-align: top;
+  text-align: right;
+  padding-right: 10px;
+  line-height: 2.8;
+  border-right: solid;
+  border-width: 2px;
+}
+
+.constuct_bar_container {
+  display: inline-block;
+  width: 70%;
+}
+
+.construct_your_mean_bar {
+  background-color: #FAD7A0;
+  text-align: right;
+}
+
+.construct_ebbi_bar {
+  background-color: #F39C12;
+  text-align: right;
 }
 
 .report_header {
@@ -114,6 +323,22 @@
   margin: 5px;
   padding: 10px;
   text-align: center;
+}
+
+.top_of_mind_container {
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 2%;
+}
+
+.top_of_mind_header {
+  font-weight: 400;
+  border-bottom: solid;
+  border-width: thin;
+  border-top: solid;
+  border-width: thin;
+  text-align: center;
+  font-size: 30px;
 }
 
 .report_item {
@@ -321,6 +546,7 @@
   width: 30%;
   height: 100%;
   vertical-align: top;
+  padding-top: 2px;
 }
 
 .score {
@@ -352,6 +578,10 @@
   width: 40%;
   padding-right: 10px;
   vertical-align: top;
+}
+
+.score_detail_end {
+  padding-top: 4px;
 }
 
 .detail_analysis_score {
@@ -909,6 +1139,7 @@ vertical-align: middle;
 }
 
 .importance_detail_label {
+  display: inline-block;
   font-size: 12px;
   width: 20%;
 }

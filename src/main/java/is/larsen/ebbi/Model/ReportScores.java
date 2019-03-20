@@ -17,6 +17,7 @@ public class ReportScores {
     private Score totalAnswers;
     private Score didNotAnswer;
     private String meanPercentage;
+    private String meanPercentageOneBased;
     private String medianPercentage;
     private String standardDeviation;
     private String yourMean;
@@ -24,5 +25,5 @@ public class ReportScores {
     private String ebbiScore;
     private String ebbiIndex;
     private String ebbiPercentage;
-
+    private String ebbiPercentageOneBased;
 }

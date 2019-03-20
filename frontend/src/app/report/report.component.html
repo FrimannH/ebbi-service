@@ -40,7 +40,7 @@
       </div>
       <div class="method_survey_date">
         <p>
-          The survey was conducted among {{getReportResponse.customerName}} customers and took place from {{getReportResponse.reportStartDate}} to {{getReportResponse.reportEndDate}}. Respondents were of both sexes aged {{getReportResponse.ageRangeFrom}} - {{getReportResponse.ageRaneTo}} years. Reminder for participation was sent out twice to those who had not yet answered. Respondents were {{getReportResponse.respondentCount}} in total.
+          The survey was conducted among {{getReportResponse.customerName}} customers and took place from {{getReportResponse.reportStartDate}} to {{getReportResponse.reportEndDate}}. Respondents were of both sexes aged {{getReportResponse.ageRangeFrom}} - {{getReportResponse.ageRangeTo}} years. Reminder for participation was sent out twice to those who had not yet answered. Respondents were {{getReportResponse.respondentCount}} in total.
         </p>
       </div>
       <div class="method_expanation_container">
@@ -89,16 +89,435 @@
         <div class="ebbi_score_formulation_cirlce">
           <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">
             <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FEF9E7" stroke-width="6"></circle>
-            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#E67E22" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.veryWell.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.veryWell.strokeOffset"></circle>
-            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#85929E" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.didNotAnswer.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.didNotAnswer.strokeOffset"></circle>
-            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FDEBD0" stroke-width="6" [attr.stroke-dasharray]="reportItem.reportScores.veryBadly.strokeDashArray" [attr.stroke-dashoffset]="reportItem.reportScores.veryBadly.strokeOffset"></circle>
+            <text class="ebbi_score_formulation_text" x="50%" y="43%" text-anchor="middle" alignment-baseline="middle">{{getReportResponse.mean}}</text>
+            <text class="ebbi_score_formulation_text" x="50%" y="57%" text-anchor="middle" alignment-baseline="middle">Out of 100</text>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FAD7A0" stroke-width="6"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#F39C12" stroke-width="6" stroke-dasharray="33.3 66.7" stroke-dashoffset="25.0"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#F8C471" stroke-width="6" stroke-dasharray="33.3 66.7" stroke-dashoffset="91.7"></circle>
+            <<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FAD7A0" stroke-width="6" stroke-dasharray="33.4 66.6" stroke-dashoffset="58.4"></circle>
           </svg>
-
         </div>
-        <div class="ebbi_score_formulation_bars">
-
+        <div class="ebbi_score_formulation_bars_contaier">
+          <div class="rebbi_score_formulation_bar">
+            <div>
+              <div>Differentiation</div>
+            </div>
+            <div class="formulation_bar">
+              <div class="score_formulation_differentiation" [style.width]="getReportResponse.differentiationPercentage"></div>
+              <div class="score_formulation_value">{{getReportResponse.differentiation}}</div>
+            </div>
+          </div>
+          <div class="rebbi_score_formulation_bar">
+            <div>
+              <div>Segmentiation</div>
+            </div>
+            <div class="formulation_bar">
+              <div class="score_formulation_segmentation" [style.width]="getReportResponse.segmentationPercentage"></div>
+              <div class="score_formulation_value">{{getReportResponse.segmentation}}</div>
+            </div>
+          </div>
+          <div class="rebbi_score_formulation_bar">
+            <div>
+              <div>Image and perception</div>
+            </div>
+            <div class="formulation_bar">
+              <div class="score_formulation_image" [style.width]="getReportResponse.imageAndPerceptionPercentage"></div>
+              <div class="score_formulation_value">{{getReportResponse.imageAndPerception}}</div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <div class="report_item_devider">
+      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
+    <div class="construct_container">
+      <div class="construct_header">
+        <p>
+          OVERVIEW OF CONSTRUCTS
+        </p>
+      </div>
+      <div class="construct_overall_values">
+        <div class="construct_your_mean">
+          <div class="construct_your_mean_color"></div>
+          <div class="construct_label">Your mean</div>
+        </div>
+        <div class="construct_filler"></div>
+        <div class="construct_ebbi_score">
+          <div class="construct_ebbi_color"></div>
+          <div class="construct_label">EBBI score</div>
+        </div>
+      </div>
+      <div class="construct_values_container">
+        <div class="construct_values">
+          <div class="construct_numbers_container">
+            <div class="construct_question"></div>
+            <div class="construct_scale_container">
+              <div class="construct_scale">
+                <div class="construct_numbers">
+                  <div class="construct_score_number construct_score_zero">0</div>
+                  <div class="construct_score_number construct_score_one">1</div>
+                  <div class="construct_score_number construct_score_two">2</div>
+                  <div class="construct_score_number construct_score_three">3</div>
+                  <div class="construct_score_number construct_score_four">4</div>
+                  <div class="construct_score_number construct_score_five">5</div>
+                </div>
+              </div>
+              <div class="chart_line">
+                <div class="construct_tick"></div>
+                <div class="construct_tick"></div>
+                <div class="construct_tick"></div>
+                <div class="construct_tick"></div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[0].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[0].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[0].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[0].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[0].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[1].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[1].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[1].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[1].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[1].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[2].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[2].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[2].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[2].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[2].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[3].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[3].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[3].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[3].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[3].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[4].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[4].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[1].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[4].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[4].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[5].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[5].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[5].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[5].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[5].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[6].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[6].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[6].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[6].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[6].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[7].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[7].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[7].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[7].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[7].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[8].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[8].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[8].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[8].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[8].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[9].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[9].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[9].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[9].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[9].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[10].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[10].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[10].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[10].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[10].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="construct_values">
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[11].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[11].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[11].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[11].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[11].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[12].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[12].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[12].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[12].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[12].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[13].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[13].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[13].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[13].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[13].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[14].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[14].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[14].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[14].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[14].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[15].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[15].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[15].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[15].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[15].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[16].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[16].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[16].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[16].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[16].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[17].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[17].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[17].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[17].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[17].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[18].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[18].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[18].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[18].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[18].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[19].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[19].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[19].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[19].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[19].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[20].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[20].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[20].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[20].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[20].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construct_value">
+            <div class="construct_question">{{getReportResponse.reportItems[21].questionOverviewName}}</div>
+            <div class="constuct_bar_container">
+              <div class="construct_your_mean_bar_container">
+                <div class="construct_your_mean_bar" [style.width]="getReportResponse.reportItems[21].reportScores.meanPercentage">
+                  {{getReportResponse.reportItems[21].reportScores.yourMean}}
+                </div>
+              </div>
+              <div class="construct_ebbi_bar_container">
+                <div class="construct_ebbi_bar" [style.width]="getReportResponse.reportItems[21].reportScores.ebbiPercentage">
+                  {{getReportResponse.reportItems[21].reportScores.ebbiScore}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="report_item_devider">
+      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
+    <div class="top_of_mind_container">
+      <div class="top_of_mind_header">
+        TOP OF MIND
+      </div>
+      <div>
+        Branding is about creating associations in the minds of consumers, inducing emotional reactions and creating lasting relationship with them. When assessing your brand and your branding efforts, it's crucial to know what comes into the minds of consumers when they think of your brand. This way you learn what associations they make with your brand and whether efforts should be made to change these associations or not.
+      </div>
+      <div class="report_color_filler top_of_mind_filler">
+
       </div>
     </div>
     <div class="report_item_devider">
@@ -159,6 +578,7 @@
                   <div class="report_score_value">{{reportItem.reportScores.veryBadly.value}}</div>
                   <div class="report_score_percentage">{{reportItem.reportScores.veryBadly.percentage}}</div>
                 </div>
+                <div class="score_detail_end"></div>
                 <hr class="report_detail_line">
                 <div class="score">
                   <div class="report_score_filler"></div>
@@ -242,10 +662,10 @@
                   <svg class="svg_dot_median" style.left="{{reportItem.reportScores.medianPercentage}}" height="16" width="16">
                     <circle cx="7" cy="7" r="5" stroke="#B87333" stroke-width="3" fill="#B87333" transparency="1.0" />
                   </svg>
-                  <svg class="svg_dot_mean" style.left="{{reportItem.reportScores.meanPercentage}}" height="16" width="16">
+                  <svg class="svg_dot_mean" style.left="{{reportItem.reportScores.meanPercentageOneBased}}" height="16" width="16">
                     <circle cx="7" cy="7" r="5" stroke="#FBB917" stroke-width="3" fill="#FBB917" />
                   </svg>
-                  <svg class="svg_dot_ebbi" style.left="{{reportItem.reportScores.ebbiPercentage}}" height="16" width="16">
+                  <svg class="svg_dot_ebbi" style.left="{{reportItem.reportScores.ebbiPercentageOneBased}}" height="16" width="16">
                     <circle cx="7" cy="7" r="5" stroke="#151B54" stroke-width="3" fill="#151B54" />
                   </svg>
                 </div>
@@ -945,7 +1365,20 @@
           <div class="report_detail_element">Imortant</div>
           <div class="report_detail_element">Neither nor</div>
           <div class="report_detail_element">Unimportant</div>
-          <div class="report_detail_score"></div>
+          <div class="report_detail_score">
+              <div class="report_score_numbers">
+                <div class="report_score_number report_score_one">1</div>
+                <div class="report_score_number report_score_two">2</div>
+                <div class="report_score_number report_score_three">3</div>
+                <div class="report_score_number report_score_four">4</div>
+                <div class="report_score_number report_score_five">5</div>
+              </div>
+              <div class="chart_line">
+                <div class="tick"></div>
+                <div class="tick"></div>
+                <div class="tick"></div>
+              </div>
+          </div>
         </div>
         <hr class="report_detail_line">
         <div class="report_details">

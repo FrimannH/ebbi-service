@@ -2,6 +2,10 @@
 #  profiles:
 #    active: default
 
+spring.datasource.url: jdbc:mysql://localhost:3306/Ebbi
+spring.datasource.username: ebbi
+spring.datasource.password: EbbiService1
+
 server:
   port: 9091
 

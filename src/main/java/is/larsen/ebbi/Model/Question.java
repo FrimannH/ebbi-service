@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class Question {
     private Integer questionId;
     private String questionName;
+    private String questionOverviewName;
     private String questionShortDescription;
     private String questionLongDescription;
     private String questionText;
