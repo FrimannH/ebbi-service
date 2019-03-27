@@ -1,4 +1,6 @@
 <div>
+  <h2 id="top">Top of page!</h2>
+  <!--<H5 id="top">Top</H5>-->
   <div class="report">
     <div class="report_admin">
       <p class="report_paragraph">  Fetch Report</p>
@@ -20,9 +22,51 @@
     </p>
   </div>
   <div class="report_container" *ngIf="reportDataDisplay">
-    <div class="report_header">
-      {{getReportResponse.customerName}}<br>
-      {{getReportResponse.description}}
+    <!--<div class="report_customer">-->
+      <!--{{getReportResponse.customerName}}<br>-->
+      <!--{{getReportResponse.description}}-->
+    <!--</div>-->
+    <!--<div class="report_item_devider">-->
+      <!--<img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">-->
+    <!--</div>-->
+    <div class="report_header_container">
+      <div class="report_header">
+        <div class="report_header_image_parent">
+          <img class="report_header_image" src=".\assets\ebbi_report\img\LarsenEnergyHeader.png" width="100%">
+        </div>
+      </div>
+      <div class="report_header_content_container">
+        <div class="report_header_branding_image_container">
+          <img class="report_header_branding_image" src=".\assets\ebbi_report\img\LarsenEnergyBranding.png" width="25%">
+        </div>
+      </div>
+      <div class="report_table_of_content_container">
+        <div class="report_table_of_content_header">
+          <p>
+            TABLE OF CONTENTS
+          </p>
+        </div>
+        <div class="report_detail_result_container">
+          <div class="report_detail_result_header">
+            Detailed results
+          </div>
+          <div class="report_detail_results">
+            <div class="report_content_table_container">
+              <table class="report_content_table">
+                <tr>
+                  <!--<a href="#top">Top</a>-->
+                  <td>Q.1: Top of mind </td>
+                  <!--<td><a href="#top">Take me to Top</a></td>-->
+                </tr>
+                <tr>
+                  <td>Q.2: Segment - Appeal</td>
+                  <td>P.7 <a href="#top">Go to top</a></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="report_item_devider">
       <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
@@ -35,7 +79,7 @@
       </div>
       <div class="method_text">
         <P>
-          This survey is designed to measure the consumer’s perception towards {{getReportResponse.customerName}} brand. The surveys questions asked are based on elements that identify energy specific brand equity constructs."&" The EBBI (Energy Brand Benchmark Measurement) was created through rigorous academic process, that has been adapted to the energy space. The result for each element is benchmarked to the total mean of nominees in the CHARGE Awards 2016
+          This survey is designed to measure the consumer’s perception towards {{getReportResponse.customerName}} brand. The surveys questions asked are based on elements that identify energy specific brand equity constructs. The EBBI (Energy Brand Benchmark Measurement) was created through rigorous academic process, that has been adapted to the energy space. The result for each element is benchmarked to the total mean of nominees in the CHARGE Awards 2016
         </P>
       </div>
       <div class="method_survey_date">
@@ -338,6 +382,27 @@
           </div>
         </div>
         <div class="construct_values">
+          <div class="construct_numbers_container">
+            <div class="construct_question"></div>
+            <div class="construct_scale_container">
+              <div class="construct_scale">
+                <div class="construct_numbers">
+                  <div class="construct_score_number construct_score_zero">0</div>
+                  <div class="construct_score_number construct_score_one">1</div>
+                  <div class="construct_score_number construct_score_two">2</div>
+                  <div class="construct_score_number construct_score_three">3</div>
+                  <div class="construct_score_number construct_score_four">4</div>
+                  <div class="construct_score_number construct_score_five">5</div>
+                </div>
+              </div>
+              <div class="chart_line">
+                <div class="construct_tick"></div>
+                <div class="construct_tick"></div>
+                <div class="construct_tick"></div>
+                <div class="construct_tick"></div>
+              </div>
+            </div>
+          </div>
           <div class="construct_value">
             <div class="construct_question">{{getReportResponse.reportItems[11].questionOverviewName}}</div>
             <div class="constuct_bar_container">
@@ -520,10 +585,15 @@
 
       </div>
     </div>
-    <div class="report_item_devider">
-      <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
-    </div>
+    <!--<div class="report_item_devider">-->
+      <!--<img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">-->
+    <!--</div>-->
     <div *ngFor='let reportItem of getReportResponse.reportItems'  class="report_items">
+      <div class="report_item_devider">
+
+        <div class="report_item_devider_anchor" id="p6">P.6</div>
+        <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+      </div>
         <div class="report_item">
           <div class="report_score">
             <div class="report_score_details">
@@ -678,7 +748,7 @@
               <div class="question_details_header">
                 <p class="question_paragraph">Detailed Analysis: {{reportItem.questionShortDescription}}</p>
               </div>
-              <div class="question_details">
+              <div class="question_details_parent">
                 <div class="report_detail_header">
                   <div class="report_detail_label"></div>
                   <div class="report_detail_element">Well</div>
@@ -875,10 +945,13 @@
             </div>
           </div>  <!--report item-->
         </div> <!--report item-->
-      <div class="report_item_devider">
-        <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
-      </div>
+      <!--<div class="report_item_devider">-->
+        <!--<img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">-->
+      <!--</div>-->
     </div>  <!-- report items-->
+    <div class="report_item_devider">
+    <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
+    </div>
     <div>
       <div class="report_promoter_container">
         <div class="report_promoter_item">
@@ -1032,7 +1105,7 @@
           </div> <!--report promoter details-->
           <div class="promoter_vertical_bar_container">
             <div class="promoter_vertical_bar_text">
-              How likely are you to recommend brand X to a friend/colleague/relative?
+              How likely are you to recommend brand {{getReportResponse.customerName}} to a friend/colleague/relative?
             </div>
             <div class="promoter_bar_container">
               <table class="promoter_bar_table">
@@ -1117,26 +1190,53 @@
         <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">
       </div>
     </div>
-    <div class="customer_importance_summary">
-      <hr class="report_detail_line">
-      <div class="importance_summary_header">
-        WHAT DO YOUR CUSTOMERS VALUE AS IMPORTANT?
-      </div>
-      <hr class="report_detail_line">
-      <div class="customer_importance_bars">
-        <div *ngFor='let reporImportancetItem of getReportResponse.customerImportance.customerImportanceSummary' class="importance_bar_container">
-          <div class="importance_question_name">
-            {{reporImportancetItem.questionName}}
+    <div class="customer_importance_summary_container">
+      <div class="customer_importance_summary">
+        <hr class="report_detail_line">
+        <div class="importance_summary_header">
+          WHAT DO YOUR CUSTOMERS VALUE AS IMPORTANT?
+        </div>
+        <hr class="report_detail_line">
+        <div clas="customer_importance_bar_container">
+          <div class="customer_importance_bar_header">
+            <div class="importance_question_name"></div>
+            <div class="importance_score_numbers">
+              <div class="report_score_number report_score_one">1</div>
+              <div class="report_score_number report_score_two">2</div>
+              <div class="report_score_number report_score_three">3</div>
+              <div class="report_score_number report_score_four">4</div>
+              <div class="report_score_number report_score_five">5</div>
+            </div>
           </div>
-          <div class="importance_bar{{reporImportancetItem.questionCount}}" [style.width]="reporImportancetItem.questionScorePercentage">
-              <span>{{reporImportancetItem.questionScore}}</span>
+          <div class="customer_importance_header_text">
+            <div class="customer_importance_header_text1"></div>
+            <div class="customer_importance_header_text2">Very Unimportant</div>
+            <div class="customer_importance_header_text3">Unimportant</div>
+            <div class="customer_importance_header_text4">
+              <div class="customer_importance_text">Neither Important <br> Nor Unimportant</div>
+              <!--<div class="customer_importance_text">Nor Unimportant</div>-->
+            </div>
+            <div class="customer_importance_header_text5">Important</div>
+            <div class="customer_importance_header_text6">Very Important</div>
+          </div>
+          <div class="customer_importance_bars">
+            <div *ngFor='let reporImportancetItem of getReportResponse.customerImportance.customerImportanceSummary' class="importance_bar_container">
+              <div class="importance_question_name">
+                {{reporImportancetItem.questionName}}
+              </div>
+              <div class="importance_bar_parent">
+                <div class="importance_bar{{reporImportancetItem.questionCount}}" [style.width]="reporImportancetItem.questionScorePercentage">
+                  <span>{{reporImportancetItem.questionScore}}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div class="importance_summary_description">
+          Knowing what your customers value as important can be crucial information when building both your business and branding strategy. If your strategy does not align with the things your customers find most important it can cause trouble for your brand and your positioning on the market. The four factors shown above have all been proven to be important when it comes to customer satisfaction and brand image. They can vary depending on country, culture and customer segments but they can give you valuable information on what your brand focus on
+        </div>
+        <div class="importance_filler"></div>
       </div>
-      <div class="importance_summary_description">
-        Knowing what your customers value as important can be crucial information when building both your business and branding strategy. If your strategy does not align with the things your customers find most important it can cause trouble for your brand and your positioning on the market. The four factors shown above have all been proven to be important when it comes to customer satisfaction and brand image. They can vary depending on country, culture and customer segments but they can give you valuable information on what your brand focus on
-      </div>
-      <div class="importance_filler"></div>
     </div>
     <div class="report_item_devider">
       <img atl="Promoter score" class="larsen_energy_image" src=".\assets\ebbi_report\img\LarsenEnergyLogo.png" width="100%" height="100%">

@@ -44,7 +44,7 @@
   border-bottom: solid;
   border-top: solid;
   border-width: thin;
-  font-size: 20px;
+  font-size: 30px;
   padding-top: 10px;
   margin-top: 10px;
 }
@@ -316,13 +316,54 @@
   text-align: right;
 }
 
-.report_header {
+.report_customer {
   font-size: 20px;
   border: solid;
   border-width: thin;
   margin: 5px;
   padding: 10px;
   text-align: center;
+}
+
+.report_header_content_container {
+  text-align: right;
+}
+
+.report_header_container {
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+.report_header {
+  padding-top: 20px;
+}
+
+
+.report_table_of_content_header {
+  font-weight: 400;
+  border-bottom: solid;
+  border-top: solid;
+  border-width: thin;
+  font-size: 30px;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.report_detail_result_header {
+  background: black;
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
+  padding-left: 10px;
+}
+
+.report_detail_results {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.report_detail_result_container {
+  margin-top: 25px;
 }
 
 .top_of_mind_container {
@@ -378,15 +419,24 @@
 .report_score  {
   border: solid;
   border-width: thin;
-  margin: 5px;
+  margin-left: 7%;
+  margin-right: 7%;
+  margin-top: 5px;
   padding: 10px;
 }
 
 .question_details {
-  border: solid;
-  border-width: thin;
-  margin: 5px;
-  padding: 10px;
+   border: solid;
+   border-width: thin;
+   margin-left: 7%;
+   margin-right: 7%;
+   padding: 10px;
+ }
+
+.question_details_parent {
+  /*border: solid;*/
+  /*border-width: thin;*/
+  /*padding: 10px;*/
 }
 
 .report_score_pie_container {
@@ -676,6 +726,9 @@ vertical-align: middle;
   margin-top: 10px;
 }
 
+.report_item_devider_anchor {
+  display: inline-block;
+}
 .report_item_image {
   background-color: #F39C12;
   height: 30px;
@@ -691,7 +744,8 @@ vertical-align: middle;
 .report_promoter_item {
   border: solid;
   border-width: thin;
-  margin: 5px;
+  margin-left: 7%;
+  margin-right: 7%;
   padding: 10px;
 }
 
@@ -1034,6 +1088,11 @@ vertical-align: middle;
   text-align: center;
 }
 
+.customer_importance_summary_container {
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
 .customer_importance_summary {
   border: solid;
   border-width: thin;
@@ -1043,6 +1102,10 @@ vertical-align: middle;
 
 .customer_importance_bars {
   height: 150px;
+}
+
+.importance_bar_end {
+  width: 12%;
 }
 
 .importance_summary_description {
@@ -1055,6 +1118,71 @@ vertical-align: middle;
   width: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.importance_score_numbers {
+  display: inline-block;
+  width: 70%;
+}
+
+.customer_importance_header_text {
+  margin-bottom: 10px;
+}
+
+.customer_importance_header_text1 {
+  display: inline-block;
+  width: 16%
+}
+
+.customer_importance_header_text2 {
+  display: inline-block;
+  width: 10%;
+  vertical-align: top;
+  text-align: center;
+  margin-top: 0.6%;
+}
+
+.customer_importance_header_text3 {
+  display: inline-block;
+  width: 23%;
+  vertical-align: top;
+  text-align: center;
+  margin-top: 0.6%;
+}
+
+.customer_importance_header_text4 {
+  display: inline-block;
+  width: 13%;
+  text-align: center;
+}
+
+.customer_importance_header_text5 {
+  display: inline-block;
+  width: 21%;
+  vertical-align: top;
+  text-align: center;
+  margin-top: 0.6%;
+}
+
+.customer_importance_header_text6 {
+  display: inline-block;
+  width: 13%;
+  vertical-align: top;
+  text-align: center;
+  margin-top: 0.6%;
+}
+
+.customer_importance_text {
+  text-align: center;
+}
+
+.customer_importance_bar_header {
+  margin-top: 15px;
+}
+
+.importance_bar_parent {
+  display: inline-block;
+  width: 70%;
 }
 
 .importance_bar1 {
